@@ -15,17 +15,18 @@ def register(request):
     else:
         return render(request,'clipboard/register.html',context={'form':form})
 
-def login(request):
-    if request.user.is_authenticated:
-        return redirect('add_word')
+def loginPage(request):
+    #if request.user.is_authenticated:
+    #    return redirect('add_word')
     if request.method=="POST":
         username=request.POST['username']
         password=request.POST['password']
         user=authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
+            return redirect('add_word')
     else:
         return render(request,'clipboard/login.html')
 
-def logout(request):
+def logoutPage(request):
     return
