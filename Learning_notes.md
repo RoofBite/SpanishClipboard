@@ -36,9 +36,31 @@ DATETIME_FORMAT = 'Y-m-d H:i'
 
 DATE_FORMAT = 'Y-m-d'
 ```
+## 6. To make ModelForm and connect instance to user
+forms.py
+``` py
+class WordInputForm(forms.ModelForm):
+    class Meta:
+        model=Word
+        exclude=('user',)
+        fields=[
+            'polish_word','spanish_word', 'etymology',
+            'notes',
+        ]
+```
+views.py
+``` py
+if request.method=='POST':
+           form=WordInputForm(request.POST)
+           if form.is_valid():
+               new_word = form.save(commit=False)
+               new_word.user=request.user
+               new_word.save() 
+```
+I exclude user from form, next I check if form is valid, naxt I create new instance new_word but not saving it yet (new_word = form.save(commit=False)), at the end I set user filed of instance to request.user and instance is saved to datebase
 
 # Debuging
 
 ## 1. login() takes 1 positional argument but 2 were given
 
-view has the same name as the auth login function, so it is hiding it. Change the view name
+View has the same name as the auth login function, so it is hiding it. Change the view name

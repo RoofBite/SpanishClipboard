@@ -2,13 +2,22 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login, logout
 from .models import Word, User
-import datetime 
+from .forms import WordInputForm
 
 def add_word(request):
     if request.user.is_authenticated:
-        words=request.user.word_set.all()
-        context={'words':words}
-        return render(request,'clipboard/add_word.html',context)
+        if request.method=='POST':
+           form=WordInputForm(request.POST)
+           if form.is_valid():
+               new_word = form.save(commit=False)
+               new_word.user=request.user
+               new_word.save() 
+           return redirect('add_word')
+        else:
+            form=WordInputForm()
+            words=request.user.word_set.all()
+            context={'words':words,'form':form}
+            return render(request,'clipboard/add_word.html',context)
     else:
         return redirect('loginPage')
 
