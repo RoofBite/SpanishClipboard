@@ -20,6 +20,23 @@ class WordAdmin(admin.ModelAdmin):
 
 ```
 
+## 4. To display date and time without a.m and p.m in temalpate
+``` html
+
+{{word.date_added.date}}
+
+{{ word.date_added|date:"H:i" }}
+```
+
+## 5. To format date and time in settings.py
+``` py
+USE_L10N = False
+
+DATETIME_FORMAT = 'Y-m-d H:i'
+
+DATE_FORMAT = 'Y-m-d'
+```
+
 # Debuging
 
 ## 1. login() takes 1 positional argument but 2 were given

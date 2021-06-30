@@ -100,58 +100,34 @@
 
 
 
-
+                        {% for word in words %}
                         <section class="row">
                             <article class="col-sm-3 text-center bg-light">
                                 
-                                Perro
+                                {{word.spanish_word}}
                                 
                             </article>
                             <article class="col-sm-3 text-center bg-white">
                                 <div class="form-group">
-                                    Pies
+                                    {{word.polish_word}}
                                 </div>
                             </article>
                             <article class="col-sm-2 text-center bg-light">
                                 
-                                29.06.2021
+                                {{word.date_added.date}}
                                 
                             </article>
                             <article class="col-sm-2 text-center bg-white">
                                 
-                                15:56
-                                
+                                {{ word.date_added|date:"H:i" }}
                             </article>
-                            <article class="col-sm-2 text-center bg-light">
-                                <a href="#" class="btn shadow-none">View</a>
+                            <article class="col-sm-2 text-center bg-success border border-white border-2">
+                                <a href="#" class="btn shadow-none text-light ">View</a>
                             </article>
                         </section>
 
-                        <section class="row">
-                            <article class="col-sm-3 text-center bg-light">
-                                
-                                Perro
-                                
-                            </article>
-                            <article class="col-sm-3 text-center bg-white">
-                                <div class="form-group">
-                                    Pies
-                                </div>
-                            </article>
-                            <article class="col-sm-2 text-center bg-light">
-                                
-                                29.06.2021
-                                
-                            </article>
-                            <article class="col-sm-2 text-center bg-white">
-                                
-                                15:56
-                                
-                            </article>
-                            <article class="col-sm-2 text-center bg-success">
-                                <a href="#" class="btn shadow-none">View</a>
-                            </article>
-                        </section>
+
+                        {% endfor %}
 
                     </div>
                 </div>
