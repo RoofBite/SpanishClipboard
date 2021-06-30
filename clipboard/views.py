@@ -4,6 +4,12 @@ from django.contrib.auth import authenticate,login, logout
 from .models import Word, User
 from .forms import WordInputForm
 
+def edit_word(request,id):
+    word=Word.objects.get(id=id)
+    if word in request.user.word_set.all():
+        return render(request,'clipboard/edit_word.html')
+    return redirect('add_word')
+
 def add_word(request):
     if request.user.is_authenticated:
         if request.method=='POST':
