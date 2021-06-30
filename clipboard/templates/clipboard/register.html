@@ -9,9 +9,10 @@
 <body>
     <form method="POST" action="">
         {% csrf_token %}
-    {{form}}
+    <center>
+    {{form.as_p}}
     <button type="submit">Submit</button>
-
+    </center>
 </form>
 </body>
 </html>
