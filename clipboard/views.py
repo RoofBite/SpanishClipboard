@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate,login, logout
 from .models import Word, User
 from .forms import WordInputForm
 from django.contrib.auth.decorators import login_required
+from datetime import datetime, timedelta
 
 
 def delete_word(request,id):
@@ -61,7 +62,9 @@ def add_word(request):
            return redirect('add_word')
         else:
             form=WordInputForm()
-            words=request.user.word_set.all()
+            #words=request.user.word_set.all()
+            time_threshold = datetime.now() - timedelta(hours=24)
+            words = Word.objects.filter(date_added__gt=time_threshold)
             context={'words':words,'form':form}
             return render(request,'clipboard/add_word.html',context)
     else:

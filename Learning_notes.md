@@ -78,7 +78,16 @@ but secound solution is slower
 ``` py
 form=WordInputForm(instance=word_instance)
 ```
+## 9. To query objects created specific number of hours ago
+``` py
+from datetime import datetime, timedelta
 
+time_threshold = datetime.now() - timedelta(hours=24)
+words = Word.objects.filter(date_added__gt=time_threshold)
+```
+
+__gt stands for "greater than"
+To get less than that would be __ls , "less than"
 
 # Debuging
 
