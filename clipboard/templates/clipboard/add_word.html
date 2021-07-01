@@ -131,18 +131,18 @@
                                 {{ word.date_added|date:"H:i" }}
                             </article>
                             <article class="col-sm-3 text-center border border-white border-2">
-                                <div class="btn-group dropup" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-success shadow-none btn-md dropdown-toggle text-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                
+                                <div class="dropdown">
+                                    <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                       Options
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View deatils</a></li>
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</a></li>
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</a></li>
-                                      
+                                    </a>
+                                  
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <li><a class="dropdown-item" href="{% url 'view_word' word.id %}">View deatils</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'edit_word' word.id %}">Edit</a></li>
+                                      <li><a class="dropdown-item" href="#">Delete</a></li>
                                     </ul>
-
-                                </div>
+                                  </div>
                             </article>
                         </section>
 

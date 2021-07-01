@@ -3,11 +3,39 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login, logout
 from .models import Word, User
 from .forms import WordInputForm
+from django.contrib.auth.decorators import login_required
+
+def view_word(request,id):
+    if request.user.is_authenticated:
+        #word=Word.objects.get(id=id)
+        #if word in request.user.word_set.all():
+        word_instance=Word.objects.filter(id=id,user=request.user.id).first()
+        if word_instance:
+            form=WordInputForm(instance=word_instance)
+
+            context={'word_instance':word_instance ,'form':form}
+            return render(request,'clipboard/view_word.html',context)
+        return redirect('add_word')
+    return redirect('login')
 
 def edit_word(request,id):
-    word=Word.objects.get(id=id)
-    if word in request.user.word_set.all():
-        return render(request,'clipboard/edit_word.html')
+    if request.user.is_authenticated:
+        #word=Word.objects.get(id=id)
+        #if word in request.user.word_set.all():
+        word_instance=Word.objects.filter(id=id,user=request.user.id).first()
+        if word_instance:
+            form=WordInputForm(instance=word_instance)
+
+            if request.method=="POST":
+                form=WordInputForm(request.POST,instance=word_instance)
+                if form.is_valid():
+                    new_word = form.save(commit=False)
+                    new_word.user=request.user
+                    new_word.save()
+                    return redirect('add_word')
+            context={'form':form}
+            return render(request,'clipboard/edit_word.html',context)
+
     return redirect('add_word')
 
 def add_word(request):

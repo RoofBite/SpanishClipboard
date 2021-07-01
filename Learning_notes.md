@@ -59,6 +59,28 @@ if request.method=='POST':
 ```
 I exclude user from form, next I check if form is valid, naxt I create new instance new_word but not saving it yet (new_word = form.save(commit=False)), at the end I set user filed of instance to request.user and instance is saved to datebase
 
+## 7. Restrict user from seing edit page of item that is not conected to that user with ForeigKey
+``` py
+
+if request.user.is_authenticated:
+        #word=Word.objects.get(id=id)
+        #if word in request.user.word_set.all():
+        word_instance=Word.objects.filter(id=id,user=request.user.id).first()
+        if word_instance:
+```
+OR
+``` py
+if request.user.is_authenticated:
+        word=Word.objects.get(id=id)
+        if word in request.user.word_set.all():
+```
+but secound solution is slower
+## 8. To render form with filelds filed with data
+``` py
+form=WordInputForm(instance=word_instance)
+```
+
+
 # Debuging
 
 ## 1. login() takes 1 positional argument but 2 were given

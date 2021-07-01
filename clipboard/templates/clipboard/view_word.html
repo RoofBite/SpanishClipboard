@@ -1,0 +1,102 @@
+{% extends "clipboard/main.html" %}
+{% load widget_tweaks %}
+    {% block content %}
+    
+    <header class="container">
+        
+        <section class="row">
+            <article class="col-md-1 text-center">
+            </article>
+
+
+
+            <article class="col-md-10 text-center">
+                <div class="card text-center">
+                    <div class="card-header">
+                      Add word
+                    </div>
+                    <div class="card-body">
+                        
+                        {% csrf_token %}
+                        <section class="row">
+                            <article class="col-sm-6 text-center">
+                                <div class="form-group">
+                                    
+                                    
+                                    {% render_field form.polish_word type="text" class="form-control text-center" placeholder="Polish word" %}
+
+                            </article>
+                            <article class="col-sm-6 text-center">    
+                                    
+                                    {% render_field form.spanish_word type="text" class="form-control text-center"  placeholder="Spanish word" %}
+                            </article>
+                        </section>
+                        <section class="row">
+                            <article class="col-sm-12 text-center">
+                                <hr>
+                                <div class="form-group">
+                                    
+                                    
+                                    {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
+                                </div>
+                                <hr>
+                            </article>
+                        </section>
+                        <section class="row">
+                            <article class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-secondary">Italian</a>
+                                </div>
+                            </article>
+                            <article class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-secondary">Portugese</a>
+                                </div>
+                            </article>
+                            <article class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-secondary">Latin</a>
+                                </div>
+                            </article>
+                        </section>
+                        <section class="row">
+                            <article class="col-sm-12 text-center">
+                                <hr>
+                                <div class="form-group">
+                                    
+                                    {% render_field form.notes class="form-control text-center"  placeholder="Notes to word" rows="2" %}
+                                </div>
+                                <hr>
+                            </article>
+                        </section>
+                        
+                        <section class="row">
+                            
+                            <article class="col-sm-6 text-center bg-light">
+                                
+                                {{word_instance.date_added.date}}
+                                
+                            </article>
+                            <article class="col-sm-6 text-center bg-white">
+                                
+                                {{ word_instance.date_added|date:"H:i" }}
+                            </article>
+                            
+                        </section>
+                        
+                        
+                      
+                    </div>
+                   
+
+            <article class="col-md-1 text-center">
+            </article>
+        </section>
+        
+        
+    
+
+    </header>
+
+
+    {% endblock %}
