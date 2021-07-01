@@ -5,10 +5,22 @@ from .models import Word, User
 from .forms import WordInputForm
 from django.contrib.auth.decorators import login_required
 
+
+def delete_word(request,id):
+    if request.user.is_authenticated:
+        word_instance=Word.objects.filter(id=id,user=request.user.id).first()
+        if word_instance:
+            if request.method=="POST":
+                word_instance.delete()
+                return redirect('add_word')
+            context={'word_instance':word_instance}
+            return render(request,'clipboard/delete_word.html',context)
+        return redirect('add_word')
+    return redirect('login')
+
+
 def view_word(request,id):
     if request.user.is_authenticated:
-        #word=Word.objects.get(id=id)
-        #if word in request.user.word_set.all():
         word_instance=Word.objects.filter(id=id,user=request.user.id).first()
         if word_instance:
             form=WordInputForm(instance=word_instance)
@@ -77,6 +89,7 @@ def loginPage(request):
         if user is not None:
             login(request,user)
             return redirect('add_word')
+        return redirect('loginPage')
     else:
         return render(request,'clipboard/login.html')
 

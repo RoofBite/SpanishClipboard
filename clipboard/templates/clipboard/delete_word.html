@@ -1,0 +1,64 @@
+{% extends "clipboard/main.html" %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+
+    <section class="row">
+        <article class="col-md-1 text-center">
+        </article>
+
+
+
+        <article class="col-md-10  text-center">
+            <div class="card text-white text-center">
+                <div class="card-header bg-danger">
+                  Do you want to delete word:
+                </div>
+            </div>
+        </article>
+        <article class="col-md-1 text-center">
+        </article>
+    </section>
+
+
+    <section class="row">
+        <article class="col-md-1 text-center">
+        </article>
+
+
+
+        <article class="col-md-10  text-center">
+            <div class="card text-dark text-center">
+                <div class="card-header bg-light">
+                  {{word_instance}}
+                </div>
+            </div>
+        </article>
+        <article class="col-md-1 text-center">
+        </article>
+    </section>
+
+
+    <section class="row">
+        <article class="col-md-1 text-center">
+        </article>
+        
+        <article class="col-md-5 text-center">
+            <div class="card-header bg-white">
+                <a type="submit" class="btn btn-danger " href="{% url 'add_word' %}" >No</a>
+            </div>
+        </article>
+        <article class="col-md-5 text-center">
+            <div class="card-header bg-white">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success " >Yes</button>
+                </form>
+            </div>
+        </article>
+        <article class="col-md-1 text-center">
+        </article>
+    </section>
+{% endblock %}

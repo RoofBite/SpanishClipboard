@@ -63,8 +63,7 @@ I exclude user from form, next I check if form is valid, naxt I create new insta
 ``` py
 
 if request.user.is_authenticated:
-        #word=Word.objects.get(id=id)
-        #if word in request.user.word_set.all():
+        
         word_instance=Word.objects.filter(id=id,user=request.user.id).first()
         if word_instance:
 ```
@@ -86,3 +85,21 @@ form=WordInputForm(instance=word_instance)
 ## 1. login() takes 1 positional argument but 2 were given
 
 View has the same name as the auth login function, so it is hiding it. Change the view name
+
+## 2. The view clipboard.views.loginPage didn't return an HttpResponse object. It returned None instead.
+
+I forgot to add redirect if user does not exist (for example wrong password was given), so I've changed this code:
+``` py
+if user is not None:
+    login(request,user)
+    return redirect('add_word')
+        
+```
+to this:
+```py
+if user is not None:
+    login(request,user)
+    return redirect('add_word')
+return redirect('loginPage')
+```
+
