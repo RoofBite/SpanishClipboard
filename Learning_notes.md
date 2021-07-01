@@ -89,6 +89,11 @@ words = Word.objects.filter(date_added__gt=time_threshold)
 __gt stands for "greater than"
 To get less than that would be __ls , "less than"
 
+## 10. Redirect to the same page
+``` py
+    return redirect(request.path)
+```
+
 # Debuging
 
 ## 1. login() takes 1 positional argument but 2 were given

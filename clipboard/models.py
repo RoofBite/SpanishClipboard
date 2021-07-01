@@ -10,4 +10,10 @@ class Word(models.Model):
     date_added=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return (self.polish_word + " - "+self.spanish_word)
+        if self.polish_word and self.spanish_word:
+            return (self.polish_word + " - "+self.spanish_word)
+        if self.polish_word:
+            return (self.polish_word)
+        if self.spanish_word:
+            return (self.polish_word)
+        return ('empty')

@@ -45,7 +45,7 @@ def edit_word(request,id):
                     new_word = form.save(commit=False)
                     new_word.user=request.user
                     new_word.save()
-                    return redirect('add_word')
+                    return redirect(request.path)
             context={'form':form}
             return render(request,'clipboard/edit_word.html',context)
 
@@ -64,7 +64,7 @@ def add_word(request):
             form=WordInputForm()
             #words=request.user.word_set.all()
             time_threshold = datetime.now() - timedelta(hours=24)
-            words = Word.objects.filter(date_added__gt=time_threshold)
+            words = Word.objects.filter(date_added__gt=time_threshold).order_by('-date_added')
             context={'words':words,'form':form}
             return render(request,'clipboard/add_word.html',context)
     else:

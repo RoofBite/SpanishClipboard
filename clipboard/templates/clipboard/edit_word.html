@@ -13,7 +13,9 @@
             <article class="col-md-10 text-center">
                 <div class="card text-center">
                     <div class="card-header">
-                      Add word
+                      Edit word
+                      
+                      
                     </div>
                     <div class="card-body">
                         <form method="POST" action="">
@@ -33,32 +35,56 @@
                             </section>
                             <section class="row">
                                 <article class="col-sm-12 text-center">
+                                    
                                     <hr>
+                                    <p>Find translation</p>
+                                    {% if form.polish_word.value %}
+                                    <a href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" class="btn btn-secondary">Polish &#8594 Spanish</a>
+                                    {% endif %}
+                                    {% if form.spanish_word.value %}
+                                    <a href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary">Spanish &#8594 Polish</a>
+                                    {% endif %}
                                     <div class="form-group">
-                                        
+                                        <hr>
                                         
                                         {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
+                                        
                                     </div>
+                                    <hr>
+                                    
+                                    {% if form.spanish_word.value %}
+                                    <a href="http://etimologias.dechile.net/?{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary">Find etymology</a>
+                                    {% else %}
+                                    <p>To find etymology add Spanish word and Save word</p>
+                                    {% endif %}
                                     <hr>
                                 </article>
                             </section>
                             <section class="row">
-                                <article class="col-sm-4 text-center">
+                                {% if form.spanish_word.value %}
+                                <article class="col-sm-6 text-center">
+                                    
                                     <div class="form-group">
-                                        <a href="#" class="btn btn-secondary">Italian</a>
+                                        
+                                        <a href="https://context.reverso.net/translation/spanish-italian/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary">Italian</a>
+
                                     </div>
                                 </article>
-                                <article class="col-sm-4 text-center">
+                                <article class="col-sm-6 text-center">
                                     <div class="form-group">
-                                        <a href="#" class="btn btn-secondary">Portugese</a>
+                                        <a href="https://context.reverso.net/translation/spanish-portuguese/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary">Portuguese</a>
                                     </div>
                                 </article>
-                                <article class="col-sm-4 text-center">
-                                    <div class="form-group">
-                                        <a href="#" class="btn btn-secondary">Latin</a>
-                                    </div>
-                                </article>
+                                
                             </section>
+                                {% else %}
+                            </section>
+                            
+                                <article class="col-sm-12 text-center">
+                                    <p> To find translation to Italian and Portuguese populate Spanish word field and Save word</p>
+                            </article>
+                                
+                            {% endif %}
                             <section class="row">
                                 <article class="col-sm-12 text-center">
                                     <hr>
@@ -69,12 +95,20 @@
                                     <hr>
                                 </article>
                             </section>
-                            <button type="submit" class="btn btn-success ">Add word</button>
+                            
+                            <button type="submit" class="btn btn-success ">Save word</button>
+                            <a type="submit" class="btn btn-secondary" href="{% url 'add_word' %">&#8592 Go back</a>
                             
                         </form>
                       
                     </div>
-                   
+                    
+                 
+                </div>
+            </article>
+
+
+
 
             <article class="col-md-1 text-center">
             </article>
