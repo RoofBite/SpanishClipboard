@@ -140,3 +140,15 @@ if user is not None:
 return redirect('loginPage')
 ```
 
+## 3. User profile picture was not showing up
+
+I've wrote this code in template to see if it exists
+``` html
+    {% if request.user.useraccount.profile_picture.url %}
+    Exists
+    {% else %}
+    Does not Exist
+    {% endif %}
+```
+I've got "Does not Exixt" response.
+It turned out that I've misspelled "useraccount"
