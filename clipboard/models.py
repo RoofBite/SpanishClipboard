@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class UserAccount(models.Model):
+    user=models.OneToOneField(User,on_delete=models.SET_NULL,null=True,blank= True)
+    profile_picture=models.ImageField(null=True,blank=True)
+
 class Word(models.Model):
     user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank= True)
     polish_word=models.CharField(max_length=200,null=True,blank=True)

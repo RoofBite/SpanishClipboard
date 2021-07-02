@@ -2,9 +2,21 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login, logout
 from .models import Word, User
-from .forms import WordInputForm
+from .forms import WordInputForm, UserAccountForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
+
+def account_settings(request):
+    if request.user.is_authenticated:
+        userAccount=request.user.useraccount
+        form=UserAccountForm(instance=userAccount)
+
+        if request.method=="POST":
+            form=UserAccountForm(request.POST, request.FILES ,instance=userAccount)
+            if form.is_valid:
+                form.save()
+        context={'form':form}
+        return render(request,'clipboard/account.html', context)
 
 
 def delete_word(request,id):
