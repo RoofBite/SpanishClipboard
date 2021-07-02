@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login, logout
-from .models import Word, User
+from .models import UserAccount, Word, User
 from .forms import WordInputForm, UserAccountForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
@@ -89,7 +89,8 @@ def register(request):
     if request.method=='POST':
         form=UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user=form.save()
+            UserAccount.objects.create(user=user)
             return redirect('add_word')
     else:
         return render(request,'clipboard/register.html',context={'form':form})

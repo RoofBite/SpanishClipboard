@@ -94,6 +94,29 @@ To get less than that would be __ls , "less than"
     return redirect(request.path)
 ```
 
+## 12. To post the file data
+In views.py
+``` py
+userAccount=request.user.useraccount
+form=UserAccountForm(instance=userAccount)
+
+if request.method=="POST":
+    form=UserAccountForm(request.POST, request.FILES ,instance=userAccount)
+    if form.is_valid:
+        form.save()
+context={'form':form}
+```
+
+
+```html
+<form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+{{form.as_p}}
+
+        <input type="submit" name="update">
+</form>
+```
+
 # Debuging
 
 ## 1. login() takes 1 positional argument but 2 were given
