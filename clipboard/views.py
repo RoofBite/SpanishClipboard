@@ -82,6 +82,8 @@ def edit_word(request,id):
                     new_word = form.save(commit=False)
                     new_word.user=request.user
                     new_word.save()
+                    if 'redirect' in request.POST:
+                        return redirect('add_word')
                     return redirect(request.path)
             context={'form':form}
             return render(request,'clipboard/edit_word.html',context)
