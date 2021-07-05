@@ -80,29 +80,21 @@
                           </div>
                     <div class="card-body bg-white">
                         <section class="row">
-                            <article class="col-sm-2 text-center bg-light">
+                            <article class="col-5 text-center bg-light">
                                 
                                 Spanish
-                                
+                            
                             </article>
-                            <article class="col-sm-2 text-center bg-white">
+                            <article class="col-5 text-center bg-white">
                                 
                                 Polish
                                 
                             </article>
-                            <article class="col-sm-2 text-center bg-light">
+                            
+                            
+                            <article class="col-2 text-center bg-white">
                                 
-                                Date
-                                
-                            </article>
-                            <article class="col-sm-2 text-center bg-white">
-                                
-                                Hour
-                                
-                            </article>
-                            <article class="col-sm-4 text-center bg-light">
-                                
-                                Details
+                                &#x20
                                 
                             </article>
                         </section>
@@ -112,31 +104,25 @@
 
                         {% for word in words %}
                         <section class="row">
-                            <article class="col-sm-2 text-center bg-light">
+                            <article class="col-5 text-center bg-light">
                                 
                                 {{word.spanish_word}}
                                 
                             </article>
-                            <article class="col-sm-2 text-center bg-white">
+                            <article class="col-5 text-center bg-white">
                                 <div class="form-group">
                                     {{word.polish_word}}
                                 </div>
                             </article>
-                            <article class="col-sm-2 text-center bg-light">
-                                
-                                {{word.date_added.date}}
-                                
-                            </article>
-                            <article class="col-sm-2 text-center bg-white">
-                                
-                                {{ word.date_added|date:"H:i" }}
-                            </article>
-                            <article class="col-sm-4 text-center bg-light">
+                            
+                            
+                            <article class="col-2 text-center bg-light">
                                 
                                 <div class="dropdown ">
+                                    
                                     <div class="d-grid" style="border: 5px solid rgba(255, 255, 255, 0)">
-                                    <a class="btn btn-success dropdown-toggle text-white fw-bold" style="background-color:#ff9c00" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                      Options
+                                    <a class="btn btn-sm btn-success dropdown-toggle text-white fw-bold p-1 " style="background-color:#ff9c00" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        &#x20
                                     </a>
                                     
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -145,6 +131,7 @@
                                       <li><a class="dropdown-item" href="{% url 'delete_word' word.id %}">Delete</a></li>
                                     </ul>
                                   </div>
+                                
                                 </div>
                             </article>
                         </section>
