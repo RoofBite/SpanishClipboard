@@ -2,70 +2,28 @@
 {% load widget_tweaks %}
     {% block content %}
     
-    <header class="container ">
+    <header class="container">
         
-        <section class="row ">
-            <article class="col-md-1 text-center ">
+        <section class="row">
+            <article class="col-md-1 text-center">
             </article>
 
 
 
-            <article class="col-md-10 text-center ">
-                <div class="card text-center ">
+            <article class="col-md-10 text-center">
+                <div class="card text-center">
                     <div class="card-header">
-                      Add word
+                      View words added
                       <hr>
-                      <p class="fs" style="font-size: 12px;">
-                      If you want you can add word with Spanish word or Polish word filed only. 
-                      <br> 
-                      Then when you click Options of that word -> Edit word, there will be possibility to add translation and etymology faster.
-                        </p>
-                      <hr>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="">
-                            {% csrf_token %}
-                            <section class="row">
-                                <article class="col-sm-6 text-center">
-                                    <div class="form-group">
-                                        
-                                       
-                                        {% render_field form.polish_word type="text" class="form-control text-center" placeholder="Polish word" %}
+                      <a href="{% url 'view_words' hours=24 %}"  class="btn btn-secondary">In 24 hours</a>
 
-                                </article>
-                                <article class="col-sm-6 text-center">    
-                                        
-                                        {% render_field form.spanish_word type="text" class="form-control text-center"  placeholder="Spanish word" %}
-                                </article>
-                            </section>
-                            <section class="row">
-                                <article class="col-sm-12 text-center">
-                                    <hr>
-                                    <a href="https://context.reverso.net/translation/polish-spanish/" target="_blank" class="btn btn-secondary">Find translation</a>
-                                    
-                                    <div class="form-group">
-                                        <hr>
-                                        {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
-                                    </div>
-                                    
-                                </article>
-                            </section>
-                            
-                            <section class="row">
-                                <article class="col-sm-12 text-center">
-                                    <hr>
-                                    <div class="form-group">
-                                        
-                                        {% render_field form.notes class="form-control text-center"  placeholder="Notes to word" rows="2" %}
-                                    </div>
-                                    <hr>
-                                </article>
-                            </section>
-                            <button type="submit" class="btn btn-success ">Add word</button>
-                            
-                        </form>
-                      
+                      <a href="{% url 'view_words' hours=24 %}"  class="btn btn-secondary">In week</a>
+                      <a href="{% url 'view_words' hours=730 %}"  class="btn btn-secondary">In month</a>
+                      <a href="{% url 'view_words' hours=8760 %}"  class="btn btn-secondary">In year</a>
+                      <a href="{% url 'view_words' hours='all' %}"  class="btn btn-secondary">See all</a>
+                      <hr>
                     </div>
+                    
                     <footer class="card-footer">
                         Words added in 24 hours
                     </footer>

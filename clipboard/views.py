@@ -6,6 +6,31 @@ from .forms import WordInputForm, UserAccountForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
 
+
+def view_words(request,hours):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+           form=WordInputForm(request.POST)
+           if form.is_valid():
+               new_word = form.save(commit=False)
+               new_word.user=request.user
+               new_word.save() 
+           return redirect('add_word')
+        else:
+            form=WordInputForm()
+            
+            if hours != "all":
+                time_threshold = datetime.now() - timedelta(hours=int(hours))
+                words = Word.objects.filter(date_added__gt=time_threshold).order_by('-date_added')
+            print(hours, type(hours))
+            if hours == "all":
+                words = Word.objects.all().order_by('-date_added')
+            context={'words':words,'form':form}
+            return render(request,'clipboard/view_words.html',context)
+    else:
+        return redirect('loginPage')
+
+
 def account_settings(request):
     if request.user.is_authenticated:
         userAccount=request.user.useraccount
@@ -63,6 +88,9 @@ def edit_word(request,id):
 
     return redirect('add_word')
 
+
+
+
 def add_word(request):
     if request.user.is_authenticated:
         if request.method=='POST':
@@ -75,7 +103,7 @@ def add_word(request):
         else:
             form=WordInputForm()
             #words=request.user.word_set.all()
-            time_threshold = datetime.now() - timedelta(hours=24)
+            time_threshold = datetime.now() - timedelta(hours=240)
             words = Word.objects.filter(date_added__gt=time_threshold).order_by('-date_added')
             context={'words':words,'form':form}
             return render(request,'clipboard/add_word.html',context)
