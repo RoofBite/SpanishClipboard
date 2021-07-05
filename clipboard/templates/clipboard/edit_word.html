@@ -12,7 +12,7 @@
 
             <article class="col-md-10 text-center">
                 <div class="card text-center">
-                    <div class="card-header">
+                    <div class="card-header text-white " style="background-color:#01055c"  >
                       Edit word
                       
                       
@@ -39,10 +39,10 @@
                                     <hr>
                                     <p>Find translation</p>
                                     {% if form.polish_word.value %}
-                                    <a href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" class="btn btn-secondary">Polish &#8594 Spanish</a>
+                                    <a href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Polish &#8594 Spanish</a>
                                     {% endif %}
                                     {% if form.spanish_word.value %}
-                                    <a href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary">Spanish &#8594 Polish</a>
+                                    <a href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Spanish &#8594 Polish</a>
                                     {% endif %}
                                     <div class="form-group">
                                         <hr>
@@ -53,7 +53,7 @@
                                     <hr>
                                     
                                     {% if form.spanish_word.value %}
-                                    <a href="http://etimologias.dechile.net/?{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary">Find etymology</a>
+                                    <a href="http://etimologias.dechile.net/?{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Find etymology</a>
                                     {% else %}
                                     <p>To find etymology add Spanish word and Save word</p>
                                     {% endif %}
@@ -66,13 +66,13 @@
                                     
                                     <div class="form-group">
                                         
-                                        <a href="https://context.reverso.net/translation/spanish-italian/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary">Italian</a>
+                                        <a href="https://context.reverso.net/translation/spanish-italian/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Italian</a>
 
                                     </div>
                                 </article>
                                 <article class="col-sm-6 text-center">
                                     <div class="form-group">
-                                        <a href="https://context.reverso.net/translation/spanish-portuguese/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary">Portuguese</a>
+                                        <a href="https://context.reverso.net/translation/spanish-portuguese/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Portuguese</a>
                                     </div>
                                 </article>
                                 
@@ -95,22 +95,35 @@
                                     <hr>
                                 </article>
                             </section>
-                            <div style="border: 5px solid rgba(255, 255, 255, 0)">
-                            <button type="submit" class="btn btn-success "> &#x1F4BE Save word and stay</button>
-                            </div>
-                            <a type="submit" class="btn btn-secondary" href="{% url 'add_word' %}">&#8592 Go back</a>
-                            <button type="submit" class="btn btn-success " name='redirect'> &#x1F4BE Save word and go back</button>
-                            
-                            
+                            <section class="row">
+                                <article class="col-sm-12 justify-content-md-end">
+                                
+
+                                    <div style="border: 5px solid rgba(255, 255, 255, 0)">
+                                        <button type="submit" class="btn btn-success " name='redirect'> &#8592 &#x1F4BE  Save word and go back</button>
+                                        <button type="submit" class="btn btn-success "> &#x1F4BE  Save word and stay</button>
+                                    
+                                    </div>
+                                    <hr>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-start">    
+                                    <a type="submit" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00" href="{% url 'add_word' %}">&#8592 Go back</a>
+                                    
+                                </div>
+                                </article>    
+                            </section>
                         </form>
-                      
+                        
                     </div>
                     
                  
                 </div>
+                  
             </article>
 
-
+            <section class="row mb-5" >
+                <article class="col-sm-12 text-center">  
+                </article>
+            </section> 
 
 
             <article class="col-md-1 text-center">

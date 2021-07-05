@@ -12,21 +12,25 @@
 
             <article class="col-md-10 text-center">
                 <div class="card text-center">
+                    <div class="card-header text-white " style="background-color:#01055c"  >
+                        View words added
+                    </div>
                     <div class="card-header">
-                      View words added
+                      
                       <hr>
-                      <a href="{% url 'view_words' hours=24 %}"  class="btn btn-secondary">In 24 hours</a>
+                <div class="text text-dark">
+                      <a href="{% url 'view_words' hours=24 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">In 24 hours</a>
 
-                      <a href="{% url 'view_words' hours=24 %}"  class="btn btn-secondary">In week</a>
-                      <a href="{% url 'view_words' hours=730 %}"  class="btn btn-secondary">In month</a>
-                      <a href="{% url 'view_words' hours=8760 %}"  class="btn btn-secondary">In year</a>
-                      <a href="{% url 'view_words' hours='all' %}"  class="btn btn-secondary">See all</a>
+                      <a href="{% url 'view_words' hours=24 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">In week</a>
+                      <a href="{% url 'view_words' hours=730 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">In month</a>
+                      <a href="{% url 'view_words' hours=8760 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">In year</a>
+                      <a href="{% url 'view_words' hours='all' %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">See all</a>
                       <hr>
                     </div>
-                    
-                    <footer class="card-footer">
+                </div>    
+                    <div class="card-header text-white " style="background-color:#01055c"  >
                         Words added
-                    </footer>
+                    </div>
                     <div class="card-body">
                         <section class="row">
                             <article class="col-sm-2 text-center bg-light">
@@ -49,7 +53,7 @@
                                 Hour
                                 
                             </article>
-                            <article class="col-sm-3 text-center bg-light">
+                            <article class="col-sm-4 text-center bg-light">
                                 
                                 Details
                                 
@@ -80,19 +84,21 @@
                                 
                                 {{ word.date_added|date:"H:i" }}
                             </article>
-                            <article class="col-sm-3 text-center border border-white border-2">
+                            <article class="col-sm-4 text-center border border-white border-2">
                                 
-                                <div class="dropdown">
-                                    <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="dropdown ">
+                                    <div class="d-grid" style="border: 3px solid rgba(255, 255, 255, 0)">
+                                    <a class="btn btn-success dropdown-toggle text-white fw-bold " style="background-color:#ff9c00" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                       Options
                                     </a>
-                                  
+                                    
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                       <li><a class="dropdown-item" href="{% url 'view_word' word.id %}">View deatils</a></li>
                                       <li><a class="dropdown-item" href="{% url 'edit_word' word.id %}">Edit</a></li>
                                       <li><a class="dropdown-item" href="{% url 'delete_word' word.id %}">Delete</a></li>
                                     </ul>
                                   </div>
+                                </div>
                             </article>
                         </section>
 
@@ -103,7 +109,10 @@
                 </div>
             </article>
 
-
+            <section class="row mb-5" >
+                <article class="col-sm-12 text-center " style="background-color: #aa151b">  
+                </article>
+            </section> 
 
 
             <article class="col-md-1 text-center">

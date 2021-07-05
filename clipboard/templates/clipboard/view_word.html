@@ -12,7 +12,7 @@
 
             <article class="col-md-10 text-center">
                 <div class="card text-center">
-                    <div class="card-header">
+                    <div class="card-header text-white " style="background-color:#01055c"  >
                      Word details
                     </div>
                     <div class="card-body">
@@ -45,17 +45,17 @@
                         <section class="row">
                             <article class="col-sm-4 text-center">
                                 <div class="form-group">
-                                    <a href="#" class="btn btn-secondary">Italian</a>
+                                    <a href="#" class="btn text-white fw-bold" style="background-color:#ff9c00">Italian</a>
                                 </div>
                             </article>
                             <article class="col-sm-4 text-center">
                                 <div class="form-group">
-                                    <a href="#" class="btn btn-secondary">Portugese</a>
+                                    <a href="#" class="btn text-white fw-bold" style="background-color:#ff9c00">Portugese</a>
                                 </div>
                             </article>
                             <article class="col-sm-4 text-center">
                                 <div class="form-group">
-                                    <a href="#" class="btn btn-secondary">Latin</a>
+                                    <a href="#" class="btn text-white fw-bold" style="background-color:#ff9c00">Latin</a>
                                 </div>
                             </article>
                         </section>
@@ -69,32 +69,39 @@
                                 <hr>
                             </article>
                         </section>
-                        <div class="card-header">
-                            Creation date
-                          </div>
+                    </div>
+                            <div class="card-header text-white " style="background-color:#01055c"  >
+                                    Creation date
+                            </div>
+                    <div class="card-body">    
                         <section class="row">
                             
                             <article class="col-sm-6 text-center bg-white">
-                                
+                                <hr>
                                 {{word_instance.date_added.date}}
-                                
+                                <hr>
                             </article>
                             <article class="col-sm-6 text-center bg-white">
-                                
+                                <hr>
                                 {{ word_instance.date_added|date:"H:i" }}
+                                <hr>
                             </article>
                             
                         </section>
                         
-                        
+                        <article class="col-12 text-center">
+                            
+                        </article>
+                    </section>
                       
                     </div>
-                   
+                           
 
-            <article class="col-md-1 text-center">
+            
+        <section class="row mb-5" >
+            <article class="col-sm-12 text-center">  
             </article>
-        </section>
-        
+        </section> 
         
     
 

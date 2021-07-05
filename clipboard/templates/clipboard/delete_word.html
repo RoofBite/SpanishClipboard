@@ -4,61 +4,70 @@
 
 {% block content %}
 
-
+<header class="container " >
+    
+    
+  
     <section class="row">
-        <article class="col-md-1 text-center">
+        <article class="col-md-1 text-center" >
         </article>
 
 
 
-        <article class="col-md-10  text-center">
+        <article class="col-md-12  text-center">
             <div class="card text-white text-center">
                 <div class="card-header bg-danger">
                   Do you want to delete word:
                 </div>
             </div>
         </article>
-        <article class="col-md-1 text-center">
-        </article>
+        
     </section>
 
 
     <section class="row">
-        <article class="col-md-1 text-center">
-        </article>
+        
 
 
 
-        <article class="col-md-10  text-center">
+        <article class="col-md-12  text-center">
             <div class="card text-dark text-center">
                 <div class="card-header bg-light">
                   {{word_instance}}
                 </div>
             </div>
         </article>
-        <article class="col-md-1 text-center">
-        </article>
+        
     </section>
 
 
     <section class="row">
-        <article class="col-md-1 text-center">
-        </article>
         
-        <article class="col-md-5 text-center">
+        
+        <article class="col text-center">
             <div class="card-header bg-white">
-                <a type="submit" class="btn btn-danger " href="{% url 'add_word' %}" >No</a>
-            </div>
-        </article>
-        <article class="col-md-5 text-center">
-            <div class="card-header bg-white">
+                <article class="d-flex justify-content-center gap-5">
+                <a type="submit" class="btn btn-success  p-3" href="{% url 'add_word' %}" >Keep</a>
+                
                 <form method="POST" action="">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-success " >Yes</button>
+                    <button type="submit" class="btn btn-danger p-3" >Delete</button>
                 </form>
+            </article>
             </div>
         </article>
-        <article class="col-md-1 text-center">
-        </article>
+        
+       
+
+        <section class="row mb-5" >
+            <article class="col-sm-12 text-center">  
+            </article>
+        </section> 
+
+        
     </section>
+
+</div>    
+</header>  
+
 {% endblock %}

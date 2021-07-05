@@ -2,18 +2,22 @@
 {% load widget_tweaks %}
     {% block content %}
     
-    <header class="container ">
+    <header class="container " >
         
-        <section class="row ">
-            <article class="col-md-1 text-center ">
+        <section class="row" >
+            <article class="col-md-1 text-center" >
             </article>
 
 
 
-            <article class="col-md-10 text-center ">
-                <div class="card text-center ">
-                    <div class="card-header">
-                      Add word
+            <article class="col-md-10 text-center" >
+                <div class="card text-center" style="border: 3px solid #01065c00; border-style: solid none;background-color:#01055c" >
+                    <div class="card-header text-white " style="background-color:#01055c"  >
+                        Add word
+
+                        
+                      </div>
+                    <div class="card-header bg-light" >
                       <hr>
                       <p class="fs" style="font-size: 12px;">
                       If you want you can add word with Spanish word or Polish word filed only. 
@@ -22,7 +26,7 @@
                         </p>
                       <hr>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body bg-white">
                         <form method="POST" action="">
                             {% csrf_token %}
                             <section class="row">
@@ -41,7 +45,7 @@
                             <section class="row">
                                 <article class="col-sm-12 text-center">
                                     <hr>
-                                    <a href="https://context.reverso.net/translation/polish-spanish/" target="_blank" class="btn btn-secondary">Find translation</a>
+                                    <a href="https://context.reverso.net/translation/polish-spanish/" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Find translation</a>
                                     
                                     <div class="form-group">
                                         <hr>
@@ -61,15 +65,20 @@
                                     <hr>
                                 </article>
                             </section>
-                            <button type="submit" class="btn btn-success ">Add word</button>
+                            <button type="submit" class="btn text-white fw-bold" style="background-color:#ff9c00">Add word</button>
                             
                         </form>
                       
                     </div>
-                    <footer class="card-footer">
-                        Words added in 24 hours
-                    </footer>
-                    <div class="card-body">
+                    
+                        
+                        <div class="card-header text-white  " style="background-color:#01055c; border: 2px solid rgb(0, 0, 0); border-style: solid none;"  >
+                            Words added in 24 hours
+                            
+                            
+                            
+                          </div>
+                    <div class="card-body bg-white">
                         <section class="row">
                             <article class="col-sm-2 text-center bg-light">
                                 
@@ -91,7 +100,7 @@
                                 Hour
                                 
                             </article>
-                            <article class="col-sm-3 text-center bg-light">
+                            <article class="col-sm-4 text-center bg-light">
                                 
                                 Details
                                 
@@ -122,19 +131,21 @@
                                 
                                 {{ word.date_added|date:"H:i" }}
                             </article>
-                            <article class="col-sm-3 text-center border border-white border-2">
+                            <article class="col-sm-4 text-center bg-light">
                                 
-                                <div class="dropdown">
-                                    <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="dropdown ">
+                                    <div class="d-grid" style="border: 5px solid rgba(255, 255, 255, 0)">
+                                    <a class="btn btn-success dropdown-toggle text-white fw-bold" style="background-color:#ff9c00" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                       Options
                                     </a>
-                                  
+                                    
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                       <li><a class="dropdown-item" href="{% url 'view_word' word.id %}">View deatils</a></li>
                                       <li><a class="dropdown-item" href="{% url 'edit_word' word.id %}">Edit</a></li>
                                       <li><a class="dropdown-item" href="{% url 'delete_word' word.id %}">Delete</a></li>
                                     </ul>
                                   </div>
+                                </div>
                             </article>
                         </section>
 
@@ -145,14 +156,21 @@
                 </div>
             </article>
 
-
+            <section class="row mb-5" >
+                <article class="col-sm-12 text-center">  
+                </article>
+            </section> 
 
 
             <article class="col-md-1 text-center">
             </article>
         </section>
-        
-        
+        <section class="row" style="background-color: #01055c" >
+      
+      
+      
+  </section>
+  
     
 
     </header>

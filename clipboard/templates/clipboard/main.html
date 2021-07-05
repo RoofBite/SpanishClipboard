@@ -12,8 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body style="background-color: #fff2cc">
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #01055c; " >
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Words Clipboard</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,31 +25,39 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'add_word' %}">Add word</a>
+                <a class="nav-link active" href="{% url 'add_word' %}">Add word</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'view_words' hours=24 %}">View words</a>
+                <a class="nav-link active" href="{% url 'view_words' hours=24 %}">View words</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_settings' %}">Account</a>
+                <a class="nav-link active" href="{% url 'account_settings' %}">Account</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'logoutPage' %}">Logout</a>
+                <a class="nav-link active" href="{% url 'logoutPage' %}">Logout</a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-      <section class="row">
-        <article class="col-12-md bg-white">
-            <hr>
-        </article>
-    </section>
-    <section class="row">
-        <article class="col-12-md bg-white">
-            <br>
-        </article>
-    </section>
+      <br>
+      <br>
     {% block content %}{% endblock %}
+    
+    <section class="row mb-5" style="background-color: #01055c" >
+      
+      <article class="col-sm-12 text-center text-white " style="background-color: #01055c">  
+        <div style="border: 2px solid rgba(0, 0, 0, 0); border-style: solid none;">
+          <br>
+          2021 - Przemysław Maryńczak
+          <br>
+          <br>
+        
+      </div>
+      </article>
+</div>
+
+  
+</section>
 </body>
 </html>
