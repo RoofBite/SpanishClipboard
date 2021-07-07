@@ -10,8 +10,7 @@ urlpatterns = [
     path('delete_word/<int:id>', views.delete_word, name='delete_word'),
     path('hide_word/<int:id>', views.hide_word, name='hide_word'),
     path('retrive_word/<int:id>', views.retrive_word, name='retrive_word'),
-    
-
+    path('deleted_words/', views.view_deleted_words, name='view_deleted_words'),
     path('register/', views.register, name='register'),
     path('login/', views.loginPage, name='loginPage'),
     path('logout/', views.logoutPage, name='logoutPage'),

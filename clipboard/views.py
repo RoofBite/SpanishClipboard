@@ -77,11 +77,10 @@ def retrive_word(request,id):
     if request.user.is_authenticated:
         word_instance=Word.objects.filter(id=id,user=request.user.id).first()
         if word_instance:
-            if request.method=="POST":
-                word_instance.for_deletion=False
-                return redirect('add_word')
-            context={'word_instance':word_instance}
-            return render(request,'clipboard/delete_word.html',context)
+            word_instance.for_deletion=False
+            word_instance.save()
+            return redirect('add_word')
+            
         return redirect('add_word')
     return redirect('login')
 
