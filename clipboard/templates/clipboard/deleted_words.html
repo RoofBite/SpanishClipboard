@@ -16,23 +16,18 @@
                     <div class="card-header text-white " style="background-color:#01055c"  >
                         Deleted words
                     </div>
-                    
-                    <div class="card-header">
-                        <div class="text mt-2 mb-2 text-dark">
-                      <a href="{% url 'view_words' hours=1 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Taday</a>
-
-                      <a href="{% url 'view_words' hours=2 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Since yeasterday</a>
-                      <a href="{% url 'view_words' hours=8 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">In week</a>
-                      <a href="{% url 'view_words' hours=31 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">In month</a>
-                      <a href="{% url 'view_words' hours=365 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">In year</a>
-                      <a href="{% url 'view_words' hours=0 %}"  class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">See all</a>
-                      
-
-                        </div>
-                    </div>    
-                    <div class="card-header text-white " style="background-color:#01055c"  >
-                        Words added
-                    </div>
+                    <form method="POST" action="{% url 'hard_delete_words' %}">
+                        {% csrf_token %}
+                        
+                            <input type="text" class="form-control mt-2 text-center" placeholder="Write 'delete' to delete all words from trash can" name="delete_all_confirm" >
+                            
+                        <button name='delete_all' value="1" type="submit" class="btn bg-danger text-white mt-2">Delete all</button>    
+                        
+                        
+                            
+                          
+                        
+                    </form>
                     <div class="card-body">
                         <section class="row">
                             <article class="col-4 text-center bg-light">
@@ -99,9 +94,9 @@
                                         </a>
                                     
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                      <li><a class="dropdown-item" href="{% url 'retrive_word' word.id %}">Retrive word</a></li>
+                                      <li><a class="dropdown-item badge bg-success p-2 text-white mb-1" href="{% url 'retrive_word' word.id %}">Retrive word</a></li>
                                       
-                                      <li><a class="dropdown-item" href="{% url 'delete_word' word.id %}">Delete</a></li>
+                                      <li><a class="dropdown-item badge  bg-danger p-2 text-white" href="{% url 'delete_word' word.id %}">Delete</a></li>
                                     </ul>
                                   </div>
                                 </div>

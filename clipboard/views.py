@@ -23,7 +23,7 @@ def view_words(request,hours):
         if hours != 0:
             enddate = date.today() + timedelta(days=1)
             startdate = enddate - timedelta(days=(hours))
-            print(startdate," d ",enddate)
+            
             words=Word.objects.filter(date_added__range=[startdate, enddate],user=request.user,for_deletion=False).order_by('-date_added')
             
 
@@ -47,9 +47,20 @@ def account_settings(request):
         context={'form':form}
         return render(request,'clipboard/account.html', context)
 
+def hard_delete_words(request):
+    if request.user.is_authenticated:
+        print(request.POST.get('delete_all_confirm'))
+        print(request.POST.get('delete_all'),"request.POST.get('delete_all'")
+        if request.POST.get('delete_all') and request.POST.get('delete_all_confirm')=='delete' :
+            words=Word.objects.filter(user=request.user.id,for_deletion=True)
+            words.delete()
+
+        return redirect('view_deleted_words')
+    return redirect('login')
 
 def delete_word(request,id):
     if request.user.is_authenticated:
+        
         word_instance=Word.objects.filter(id=id,user=request.user.id).first()
         if word_instance:
             if request.method=="POST":
@@ -57,7 +68,7 @@ def delete_word(request,id):
                 return redirect('add_word')
             context={'word_instance':word_instance}
             return render(request,'clipboard/delete_word.html',context)
-        return redirect('add_word')
+        return redirect(request.path)
     return redirect('login')
 
 
@@ -65,7 +76,7 @@ def hide_word(request,id):
     if request.user.is_authenticated:
         word_instance=Word.objects.filter(id=id,user=request.user.id).first()
         if word_instance:
-            print("dziła")
+            
             word_instance.for_deletion=True
             word_instance.save()
             return redirect('add_word')

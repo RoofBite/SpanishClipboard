@@ -99,9 +99,9 @@
                                         </a>
                                     
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                      <li><a class="dropdown-item" href="{% url 'view_word' word.id %}">View deatils</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'edit_word' word.id %}">Edit</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'delete_word' word.id %}">Delete</a></li>
+                                      <li><a class="dropdown-item badge mb-2 p-2 text-white" style="background-color:#ff9c00" href="{% url 'view_word' word.id %}" >View deatils</a></li>
+                                      <li><a class="dropdown-item badge mb-2 p-2 text-white" style="background-color:#ff9c00" href="{% url 'edit_word' word.id %}">Edit</a></li>
+                                      <li><a class="dropdown-item badge  bg-danger p-2 text-white" href="{% url 'delete_word' word.id %}">Delete</a></li>
                                     </ul>
                                   </div>
                                 </div>
