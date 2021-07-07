@@ -21,7 +21,7 @@ def view_words(request,hours):
             
             if hours != "all":
                 time_threshold = datetime.now() - timedelta(hours=int(hours))
-                words = Word.objects.filter(date_added__gt=time_threshold).order_by('-date_added')
+                words = Word.objects.filter(date_added__lte=datetime.now(),date_added__gt=time_threshold,user=request.user).order_by('-date_added')
             print(hours, type(hours))
             if hours == "all":
                 words = Word.objects.all().order_by('-date_added')
@@ -106,7 +106,7 @@ def add_word(request):
             form=WordInputForm()
             #words=request.user.word_set.all()
             time_threshold = datetime.now() - timedelta(hours=240)
-            words = Word.objects.filter(date_added__gt=time_threshold,user=request.user).order_by('-date_added')
+            words = Word.objects.filter(date_added__gte=time_threshold,user=request.user).order_by('-date_added')
             context={'words':words,'form':form}
             return render(request,'clipboard/add_word.html',context)
     else:
