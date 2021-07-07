@@ -4,29 +4,33 @@ from django.contrib.auth import authenticate,login, logout
 from .models import UserAccount, Word, User
 from .forms import WordInputForm, UserAccountForm
 from django.contrib.auth.decorators import login_required
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,date
+
+def view_deleted_words(request):
+    if request.user.is_authenticated and request.method=='GET':
+
+        words = Word.objects.filter(user=request.user,for_deletion=True).order_by('-date_added')
+        context={'words':words,}
+        return render(request,'clipboard/deleted_words.html',context)
+    else:
+        return redirect('loginPage')
 
 
 def view_words(request,hours):
-    if request.user.is_authenticated:
-        if request.method=='POST':
-           form=WordInputForm(request.POST)
-           if form.is_valid():
-               new_word = form.save(commit=False)
-               new_word.user=request.user
-               new_word.save() 
-           return redirect('add_word')
-        else:
-            form=WordInputForm()
+    if request.user.is_authenticated and request.method=='GET':
+    
+        
+        if hours != 0:
+            enddate = date.today() + timedelta(days=1)
+            startdate = enddate - timedelta(days=(hours))
+            print(startdate," d ",enddate)
+            words=Word.objects.filter(date_added__range=[startdate, enddate],user=request.user,for_deletion=False).order_by('-date_added')
             
-            if hours != "all":
-                time_threshold = datetime.now() - timedelta(hours=int(hours))
-                words = Word.objects.filter(date_added__lte=datetime.now(),date_added__gt=time_threshold,user=request.user).order_by('-date_added')
-            print(hours, type(hours))
-            if hours == "all":
-                words = Word.objects.all().order_by('-date_added')
-            context={'words':words,'form':form}
-            return render(request,'clipboard/view_words.html',context)
+
+        if hours == 0:
+            words = Word.objects.filter(user=request.user,for_deletion=False).order_by('-date_added')
+        context={'words':words,}
+        return render(request,'clipboard/view_words.html',context)
     else:
         return redirect('loginPage')
 
@@ -50,6 +54,31 @@ def delete_word(request,id):
         if word_instance:
             if request.method=="POST":
                 word_instance.delete()
+                return redirect('add_word')
+            context={'word_instance':word_instance}
+            return render(request,'clipboard/delete_word.html',context)
+        return redirect('add_word')
+    return redirect('login')
+
+
+def hide_word(request,id):
+    if request.user.is_authenticated:
+        word_instance=Word.objects.filter(id=id,user=request.user.id).first()
+        if word_instance:
+            print("dziła")
+            word_instance.for_deletion=True
+            word_instance.save()
+            return redirect('add_word')
+
+        return redirect('add_word')
+    return redirect('login')
+
+def retrive_word(request,id):
+    if request.user.is_authenticated:
+        word_instance=Word.objects.filter(id=id,user=request.user.id).first()
+        if word_instance:
+            if request.method=="POST":
+                word_instance.for_deletion=False
                 return redirect('add_word')
             context={'word_instance':word_instance}
             return render(request,'clipboard/delete_word.html',context)
@@ -106,7 +135,7 @@ def add_word(request):
             form=WordInputForm()
             #words=request.user.word_set.all()
             time_threshold = datetime.now() - timedelta(hours=240)
-            words = Word.objects.filter(date_added__gte=time_threshold,user=request.user).order_by('-date_added')
+            words = Word.objects.filter(date_added__gte=time_threshold,user=request.user,for_deletion=False).order_by('-date_added')
             context={'words':words,'form':form}
             return render(request,'clipboard/add_word.html',context)
     else:

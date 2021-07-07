@@ -14,7 +14,7 @@
                 
                 <div class="card text-center">
                     <div class="card-header text-white " style="background-color:#01055c"  >
-                        View words added
+                        Deleted words
                     </div>
                     
                     <div class="card-header">
@@ -99,8 +99,8 @@
                                         </a>
                                     
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                      <li><a class="dropdown-item" href="{% url 'view_word' word.id %}">View deatils</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'edit_word' word.id %}">Edit</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'retrive_word' word.id %}">Retrive word</a></li>
+                                      
                                       <li><a class="dropdown-item" href="{% url 'delete_word' word.id %}">Delete</a></li>
                                     </ul>
                                   </div>

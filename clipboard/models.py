@@ -16,7 +16,7 @@ class Word(models.Model):
     etymology=models.CharField(max_length=200,null=True,blank=True)
     notes=models.TextField(max_length=2000,null=True,blank=True)
     date_added=models.DateTimeField(auto_now_add=True)
-
+    for_deletion=models.BooleanField(default=False)
     def __str__(self):
         if self.polish_word and self.spanish_word:
             return (self.polish_word + " - "+self.spanish_word)
