@@ -46,8 +46,8 @@
                                 <article class="col-sm-12 text-center">
                                     <hr>
                                     <a href="https://context.reverso.net/translation/polish-spanish/" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Find translation</a>
-                                    <a id="polish_spanish" href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" class="btn btn-secondary text-white d-none fw-bold" style="background-color:#ff9c00">Polish &#8594 Spanish</a>
-                                    <a id="spanish_polish" href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white d-none fw-bold" style="background-color:#ff9c00">Spanish &#8594 Polish</a>
+                                    <a id="polish_spanish" href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" onclick="addLinkPol_Sp()" class="btn btn-secondary text-white d-none fw-bold" style="background-color:#ff9c00">Polish &#8594 Spanish</a>
+                                    <a id="spanish_polish" href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" onclick= "addLinkSp_Pol()" class="btn btn-secondary text-white d-none fw-bold" style="background-color:#ff9c00">Spanish &#8594 Polish</a>
                                     <div class="form-group">
                                         <hr>
                                         {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
@@ -170,6 +170,19 @@
 
 
     <script type="text/javascript">
+
+
+        function addLinkPol_Sp()
+            {
+            document.getElementById('polish_spanish').href = ('https://context.reverso.net/translation/polish-spanish/')+(document.getElementById('polish_input').value);
+            }
+
+        function addLinkSp_Pol()
+        {
+        document.getElementById('spanish_polish').href = ('https://context.reverso.net/translation/spanish-polish/')+(document.getElementById('spanish_input').value);
+        }
+
+
         var spanish_input = document.getElementById('spanish_input')
         spanish_input.addEventListener('input',function(){
            
