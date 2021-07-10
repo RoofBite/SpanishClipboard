@@ -116,7 +116,19 @@ context={'form':form}
         <input type="submit" name="update">
 </form>
 ```
+## 12. DateTimeField and DateField
+If DateTimeField
+``` py
+from datetime import datetime, timedelta,date
 
+Word.objects.filter(date_added__date=date(2021-7-11))
+```
+If Fieled is DateField this will not work, you should do it without __date:
+ ``` py
+from datetime import datetime, timedelta,date
+
+Word.objects.filter(date_added=date(2021-7-11))
+```
 # Debuging
 
 ## 1. login() takes 1 positional argument but 2 were given

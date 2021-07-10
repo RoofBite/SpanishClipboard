@@ -49,8 +49,7 @@ def account_settings(request):
 
 def hard_delete_words(request):
     if request.user.is_authenticated:
-        print(request.POST.get('delete_all_confirm'))
-        print(request.POST.get('delete_all'),"request.POST.get('delete_all'")
+        
         if request.POST.get('delete_all') and request.POST.get('delete_all_confirm')=='delete' :
             words=Word.objects.filter(user=request.user.id,for_deletion=True)
             words.delete()
