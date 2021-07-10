@@ -34,19 +34,20 @@
                                     <div class="form-group">
                                         
                                        
-                                        {% render_field form.polish_word type="text" class="form-control text-center" placeholder="Polish word" %}
+                                        {% render_field form.polish_word type="text" id="polish_input" class="form-control text-center" placeholder="Polish word" %}
 
                                 </article>
                                 <article class="col-sm-6 text-center">    
                                         
-                                        {% render_field form.spanish_word type="text" class="form-control text-center"  placeholder="Spanish word" %}
+                                        {% render_field form.spanish_word type="text" id="spanish_input" class="form-control text-center"  placeholder="Spanish word" %}
                                 </article>
                             </section>
                             <section class="row">
                                 <article class="col-sm-12 text-center">
                                     <hr>
                                     <a href="https://context.reverso.net/translation/polish-spanish/" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Find translation</a>
-                                    
+                                    <a id="polish_spanish" href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" class="btn btn-secondary text-white d-none fw-bold" style="background-color:#ff9c00">Polish &#8594 Spanish</a>
+                                    <a id="spanish_polish" href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white d-none fw-bold" style="background-color:#ff9c00">Spanish &#8594 Polish</a>
                                     <div class="form-group">
                                         <hr>
                                         {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
@@ -164,4 +165,42 @@
     
 
     </header>
+
+
+
+
+    <script type="text/javascript">
+        var spanish_input = document.getElementById('spanish_input')
+        spanish_input.addEventListener('input',function(){
+           
+            if (document.getElementById('spanish_input').value.length != 0){
+                document.getElementById('spanish_polish').classList.remove('d-none')
+                
+                console.log(document.getElementById('spanish_input').value)
+            }
+            else {
+                console.log('else')
+                
+                document.getElementById('spanish_polish').classList.add('d-none')}
+        })
+        
+        var polish_input = document.getElementById('polish_input')
+        polish_input.addEventListener('input',function(){
+           
+            if (document.getElementById('polish_input').value.length != 0){
+                document.getElementById('polish_spanish').classList.remove('d-none')
+                
+                console.log(document.getElementById('polish_input').value)
+            }
+            else {
+                console.log('else')
+                
+                document.getElementById('polish_spanish').classList.add('d-none')}
+        })
+
+        
+
+        
+       
+    </script>
 {% endblock %}
