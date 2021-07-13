@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'clipboard',
     'widget_tweaks',
-    'lazysignup'
 ]
 
 MIDDLEWARE = [
@@ -52,12 +51,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-AUTHENTICATION_BACKENDS = (
-  'django.contrib.auth.backends.ModelBackend',
-  'lazysignup.backends.LazySignupBackend',
-)
-
 
 ROOT_URLCONF = 'clipboard_project.urls'
 
