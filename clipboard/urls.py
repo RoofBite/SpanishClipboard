@@ -17,3 +17,7 @@ urlpatterns = [
     path('logout/', views.logoutPage, name='logoutPage'),
     path('account/', views.account_settings, name='account_settings'),
 ]
+
+urlpatterns += (
+    url('convert/', include('lazysignup.urls')),
+)
