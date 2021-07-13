@@ -5,6 +5,8 @@ from .models import UserAccount, Word, User
 from .forms import WordInputForm, UserAccountForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta,date
+from lazysignup.decorators import allow_lazy_user, require_nonlazy_user
+
 
 def view_deleted_words(request):
     if request.user.is_authenticated and request.method=='GET':
@@ -94,7 +96,7 @@ def retrive_word(request,id):
         return redirect('add_word')
     return redirect('login')
 
-
+@allow_lazy_user
 def view_word(request,id):
     if request.user.is_authenticated:
         word_instance=Word.objects.filter(id=id,user=request.user.id).first()
@@ -106,6 +108,7 @@ def view_word(request,id):
         return redirect('add_word')
     return redirect('login')
 
+@require_nonlazy_user
 def edit_word(request,id):
     if request.user.is_authenticated:
         #word=Word.objects.get(id=id)
@@ -130,8 +133,9 @@ def edit_word(request,id):
 
 
 
-
+@allow_lazy_user
 def add_word(request):
+    print(request.user)
     if request.user.is_authenticated:
         if request.method=='POST':
            form=WordInputForm(request.POST)

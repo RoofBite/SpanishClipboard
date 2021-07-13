@@ -27,7 +27,7 @@
                       <hr>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="">
+                        <form method="POST" action="" autocomplete="off">
                             {% csrf_token %}
                             <section class="row">
                                 <article class="col-sm-6 text-center">
@@ -46,13 +46,13 @@
                                 <article class="col-sm-12 text-center">
                                     <hr>
                                     <a href="https://context.reverso.net/translation/polish-spanish/" target="_blank" class="btn btn-secondary text-white fw-bold "  style="background-color:#ff9c00">Find translation</a>
-                                    <a id="polish_spanish" href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" onclick="addLinkPol_Sp()" class="btn btn-secondary text-white disabled fw-bold" style="background-color:#cccccc">Polish &#8594 Spanish</a>
-                                    <a id="spanish_polish" href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" onclick= "addLinkSp_Pol()" class="btn btn-secondary text-white disabled fw-bold" style="background-color:#cccccc">Spanish &#8594 Polish</a>
+                                    <a id="polish_spanish" href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" onclick="addLinkPol_Sp()" class="btn btn-secondary text-white disabled fw-bold"  autocomplete="off"style="background-color:#cccccc">Polish &#8594 Spanish</a>
+                                    <a id="spanish_polish" href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" onclick= "addLinkSp_Pol()" class="btn btn-secondary text-white disabled fw-bold" autocomplete="off" style="background-color:#cccccc">Spanish &#8594 Polish</a>
                                     <div class="form-group">
                                         <hr>
                                         {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
                                         
-                                        <a id="etymology-input" onclick="Etymology()" href="http://etimologias.dechile.net/?{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white mt-3 disabled fw-bold" style="background-color:#cccccc">Find etymology</a>
+                                        <a id="etymology-input" onclick="Etymology()" href="http://etimologias.dechile.net/?{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white mt-3 disabled fw-bold" style="background-color:#cccccc" autocomplete="off">Find etymology</a>
                                     </div>
                                     
                                 </article>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path ,include
 from . import views
 
 urlpatterns = [
@@ -18,3 +18,6 @@ urlpatterns = [
     path('account/', views.account_settings, name='account_settings'),
 ]
 
+urlpatterns += [
+    path('convert/', include('lazysignup.urls')),
+]
