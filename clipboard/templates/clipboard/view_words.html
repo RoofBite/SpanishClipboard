@@ -33,6 +33,9 @@
                     <div class="card-header text-white " style="background-color:#01055c"  >
                         Words added
                     </div>
+                    <div class="card-header text-dark " style="font-size: 13px;" >
+                        By typing date you can search fo specific day (e.g. 2021-07-14), month (e.g. 2021-07), year (e.g. 2021)
+                    </div>
                     <form class="d-flex ms-3 mt-3 me-3" method="GET" action='{% url "view_words" hours=0 %}'>
                         <input class="form-control  " type="search" value="{{search_query}}" placeholder="Search" aria-label="Search" name="search_query">
                         <button class="btn btn-outline-success" type="submit">Search</button>

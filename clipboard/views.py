@@ -34,9 +34,9 @@ def view_words(request,hours):
             if request.GET.get('search_query'):
                 search_query = request.GET.get('search_query')
                 words=Word.objects.filter(
-                Q(polish_word__icontains=search_query) | Q(spanish_word__icontains=search_query) | Q(etymology__icontains=search_query) | Q(notes__icontains=search_query),
-                user=request.user,for_deletion=False,)
-                #print('Search', search_query)
+                Q(polish_word__icontains=search_query) | Q(date_added__startswith=search_query) | Q(spanish_word__icontains=search_query) | Q(etymology__icontains=search_query) | Q(notes__icontains=search_query),
+                user=request.user,for_deletion=False).order_by('-date_added')
+                print('Date', str(words[0].date_added))
             else:
                 words = Word.objects.filter(user=request.user,for_deletion=False).order_by('-date_added')
         context={'words':words,'search_query':search_query}
