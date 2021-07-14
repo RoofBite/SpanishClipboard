@@ -6,7 +6,7 @@ from .forms import WordInputForm, UserAccountForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta,date
 from lazysignup.decorators import allow_lazy_user, require_nonlazy_user
-
+from django.db.models import Q
 
 def view_deleted_words(request):
     if request.user.is_authenticated and request.method=='GET':
@@ -20,7 +20,7 @@ def view_deleted_words(request):
 
 def view_words(request,hours):
     if request.user.is_authenticated and request.method=='GET':
-    
+        search_query=''
         
         if hours != 0:
             enddate = date.today() + timedelta(days=1)
@@ -30,8 +30,16 @@ def view_words(request,hours):
             
 
         if hours == 0:
-            words = Word.objects.filter(user=request.user,for_deletion=False).order_by('-date_added')
-        context={'words':words,}
+            
+            if request.GET.get('search_query'):
+                search_query = request.GET.get('search_query')
+                words=Word.objects.filter(
+                Q(polish_word__icontains=search_query) | Q(spanish_word__icontains=search_query) | Q(etymology__icontains=search_query) | Q(notes__icontains=search_query),
+                user=request.user,for_deletion=False,)
+                #print('Search', search_query)
+            else:
+                words = Word.objects.filter(user=request.user,for_deletion=False).order_by('-date_added')
+        context={'words':words,'search_query':search_query}
         return render(request,'clipboard/view_words.html',context)
     else:
         return redirect('loginPage')
@@ -135,7 +143,7 @@ def edit_word(request,id):
 
 @allow_lazy_user
 def add_word(request):
-    print(request.user)
+    
     if request.user.is_authenticated:
         if request.method=='POST':
            form=WordInputForm(request.POST)

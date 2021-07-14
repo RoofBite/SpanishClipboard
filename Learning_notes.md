@@ -129,6 +129,9 @@ from datetime import datetime, timedelta,date
 
 Word.objects.filter(date_added=date(2021-7-11))
 ```
+## 13. Complex lookups with Q objects
+Great explanation in documantation 
+https://docs.djangoproject.com/en/3.2/topics/db/queries/#complex-lookups-with-q-objects
 # Debuging
 
 ## 1. login() takes 1 positional argument but 2 were given
