@@ -30,13 +30,20 @@ def view_words(request,hours):
             
 
         if hours == 0:
-            
-            if request.GET.get('search_query'):
+            # Using 0 caughts most of inputs where someone is looking only for date
+            # Most months start with 0, every year in that century has 0 in it
+            # Rarely someone will search for 0 not meaning a date. 
+            # By doing it this way also when someone uses other digits they will be find in other fields 
+            if request.GET.get('search_query') and '0' in request.GET.get('search_query'):
+                search_query = request.GET.get('search_query')
+                words=Word.objects.filter(date_added__startswith=search_query,
+                user=request.user,for_deletion=False).order_by('-date_added')
+            elif request.GET.get('search_query'):
                 search_query = request.GET.get('search_query')
                 words=Word.objects.filter(
                 Q(polish_word__icontains=search_query) | Q(date_added__startswith=search_query) | Q(spanish_word__icontains=search_query) | Q(etymology__icontains=search_query) | Q(notes__icontains=search_query),
                 user=request.user,for_deletion=False).order_by('-date_added')
-                print('Date', str(words[0].date_added))
+                
             else:
                 words = Word.objects.filter(user=request.user,for_deletion=False).order_by('-date_added')
         context={'words':words,'search_query':search_query}
