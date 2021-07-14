@@ -46,7 +46,7 @@ def view_words(request,hours):
                 
             else:
                 words = Word.objects.filter(user=request.user,for_deletion=False).order_by('-date_added')
-        context={'words':words,'search_query':search_query}
+        context={'words':words,'search_query':search_query,'hours':hours}
         return render(request,'clipboard/view_words.html',context)
     else:
         return redirect('loginPage')
