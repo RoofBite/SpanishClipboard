@@ -108,7 +108,7 @@ def view_word(request,id):
         return redirect('add_word')
     return redirect('login')
 
-@require_nonlazy_user
+
 def edit_word(request,id):
     if request.user.is_authenticated:
         #word=Word.objects.get(id=id)
