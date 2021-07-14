@@ -18,13 +18,12 @@
                         
                       </div>
                     <div class="card-header bg-light" >
-                      <hr>
-                      <p class="fs" style="font-size: 12px;">
+                      
+                      <p class="fs mt-2 mb-2" style="font-size: 13px;">
                       If you want you can add word with Spanish word or Polish word filed only. 
-                      <br> 
-                      Then when you click Options of that word -> Edit word, there will be possibility to add translation and etymology faster.
+                      
                         </p>
-                      <hr>
+                      
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="" autocomplete="off">
@@ -43,13 +42,13 @@
                                 </article>
                             </section>
                             <section class="row">
-                                <article class="col-sm-12 text-center">
-                                    <hr>
+                                <article class="col-sm-12 mt-3 mb-3 text-center">
+                                    
                                     <a href="https://context.reverso.net/translation/polish-spanish/" target="_blank" class="btn btn-secondary text-white fw-bold "  style="background-color:#ff9c00">Find translation</a>
                                     <a id="polish_spanish" href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" onclick="addLinkPol_Sp()" class="btn btn-secondary text-white disabled fw-bold"  autocomplete="off"style="background-color:#cccccc">Polish &#8594 Spanish</a>
                                     <a id="spanish_polish" href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" onclick= "addLinkSp_Pol()" class="btn btn-secondary text-white disabled fw-bold" autocomplete="off" style="background-color:#cccccc">Spanish &#8594 Polish</a>
-                                    <div class="form-group">
-                                        <hr>
+                                    <div class="form-group mt-3">
+                                        
                                         {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
                                         
                                         <a id="etymology-input" onclick="Etymology()" href="http://etimologias.dechile.net/?{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white mt-3 disabled fw-bold" style="background-color:#cccccc" autocomplete="off">Find etymology</a>
@@ -60,7 +59,7 @@
                             
                             <section class="row">
                                 <article class="col-sm-12 text-center">
-                                    <hr>
+                                    
                                     <div class="form-group">
                                         
                                         {% render_field form.notes class="form-control text-center"  placeholder="Notes to word" rows="2" %}

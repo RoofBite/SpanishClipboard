@@ -19,13 +19,13 @@
                     
                     <div class="card-header">
                         <div class="text mt-2 mb-2 text-dark">
-                      <a href="{% url 'view_words' hours=1 %}"  class="btn {% ifequal hours 1  %} btn-info {% endifequal %} text-white fw-bold" {% if hours != 1  %}style="background-color:#ff9c00"{% endif %}>Today</a>
+                      <a href="{% url 'view_words' hours=1 %}"  class="btn {% ifequal hours 1  %} btn-primary {% endifequal %} text-white fw-bold" {% if hours != 1  %}style="background-color:#ff9c00"{% endif %}>Today</a>
 
-                      <a href="{% url 'view_words' hours=2 %}"  class="btn {% ifequal hours 2  %} btn-info {% endifequal %} text-white fw-bold"  {% if hours != 2  %}style="background-color:#ff9c00"{% endif %}>Since yeasterday</a>
-                      <a href="{% url 'view_words' hours=8 %}"  class="btn {% ifequal hours 8  %} btn-info {% endifequal %} text-white fw-bold"  {% if hours != 8  %}style="background-color:#ff9c00"{% endif %}>In week</a>
-                      <a href="{% url 'view_words' hours=31 %}"  class="btn {% ifequal hours 31  %} btn-info {% endifequal %} text-white fw-bold"  {% if hours != 31  %}style="background-color:#ff9c00"{% endif %}>In month</a>
-                      <a href="{% url 'view_words' hours=365 %}"  class="btn {% ifequal hours 365  %} btn-info {% endifequal %} text-white fw-bold"  {% if hours != 365  %}style="background-color:#ff9c00"{% endif %}>In year</a>
-                      <a href="{% url 'view_words' hours=0 %}"  class="btn {% ifequal hours 0  %} btn-info {% endifequal %} text-white fw-bold"  {% if hours == 0 and not search_query != '' %}style="background-color:#0dcaf0"{% else %} style="background-color:#ff9c00" {% endif %}>See all</a>
+                      <a href="{% url 'view_words' hours=2 %}"  class="btn {% ifequal hours 2  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours != 2  %}style="background-color:#ff9c00"{% endif %}>Since yeasterday</a>
+                      <a href="{% url 'view_words' hours=8 %}"  class="btn {% ifequal hours 8  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours != 8  %}style="background-color:#ff9c00"{% endif %}>In week</a>
+                      <a href="{% url 'view_words' hours=31 %}"  class="btn {% ifequal hours 31  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours != 31  %}style="background-color:#ff9c00"{% endif %}>In month</a>
+                      <a href="{% url 'view_words' hours=365 %}"  class="btn {% ifequal hours 365  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours != 365  %}style="background-color:#ff9c00"{% endif %}>In year</a>
+                      <a href="{% url 'view_words' hours=0 %}"  class="btn {% ifequal hours 0  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours == 0 and not search_query != '' %}style="background-color:#1266F1"{% else %} style="background-color:#ff9c00" {% endif %}>See all</a>
                       
 
                         </div>

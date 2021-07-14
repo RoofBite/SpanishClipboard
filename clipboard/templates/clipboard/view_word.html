@@ -19,7 +19,7 @@
                     <div class="card-body" >
                         <form autocomplete="off">
                        
-                        <section class="row">
+                        <section class="row mt-0 mb-2">
                             <article class="col-sm-6 text-center">
                                 <div class="form-group">
                                     
@@ -33,18 +33,19 @@
                             </article>
                         </section>
                         <section class="row">
-                            <article class="col-sm-12 text-center">
-                                <hr>
+                            <article class="col-sm-12 mt-2 mb-2 text-center">
+                                
                                 <div class="form-group">
                                     
                                     
                                     {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
                                 </div>
-                                <hr>
+                               
                             </article>
                         </section>
-                        <section class="row">
-                            <article class="col-sm-4 text-center">
+
+                        <section class="row d-none mt-2 mb-2">
+                            <article class="col-sm-4  text-center">
                                 <div class="form-group">
                                     <a href="#" class="btn text-white fw-bold" style="background-color:#ff9c00">Italian</a>
                                 </div>
@@ -61,13 +62,13 @@
                             </article>
                         </section>
                         <section class="row">
-                            <article class="col-sm-12 text-center">
-                                <hr>
+                            <article class="col-sm-12 mt-2 mb-2 text-center">
+                                
                                 <div class="form-group">
                                     
                                     {% render_field form.notes class="form-control text-center"  placeholder="Notes to word" rows="2" %}
                                 </div>
-                                <hr>
+                                
                             </article>
                         </section>
                     </form>
@@ -79,14 +80,14 @@
                         <section class="row">
                             
                             <article class="col-sm-6 text-center bg-white">
-                                <hr>
+                                
                                 {{word_instance.date_added.date}}
-                                <hr>
+                                
                             </article>
                             <article class="col-sm-6 text-center bg-white">
-                                <hr>
+                                
                                 {{ word_instance.date_added|date:"H:i" }}
-                                <hr>
+                                
                             </article>
                             
                         </section>

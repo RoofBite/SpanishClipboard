@@ -34,9 +34,9 @@
                                 </article>
                             </section>
                             <section class="row">
-                                <article class="col-sm-12 text-center">
+                                <article class="col-sm-12 mt-2 mb-2 text-center">
                                     
-                                    <hr>
+                                    
                                     <p>Find translation</p>
                                     {% if form.polish_word.value %}
                                     <a href="https://context.reverso.net/translation/polish-spanish/{{form.polish_word.value}}" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Polish &#8594 Spanish</a>
@@ -44,25 +44,25 @@
                                     {% if form.spanish_word.value %}
                                     <a href="https://context.reverso.net/translation/spanish-polish/{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Spanish &#8594 Polish</a>
                                     {% endif %}
-                                    <div class="form-group">
-                                        <hr>
+                                    <div class="form-group mt-2 mb-2 ">
+                                        
                                         
                                         {% render_field form.etymology type="text" class="form-control text-center"  placeholder="Etymology" %}
                                         
                                     </div>
-                                    <hr>
+                                    
                                     
                                     {% if form.spanish_word.value %}
-                                    <a href="http://etimologias.dechile.net/?{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary text-white fw-bold" style="background-color:#ff9c00">Find etymology</a>
+                                    <a href="http://etimologias.dechile.net/?{{form.spanish_word.value}}" target="_blank" class="btn btn-secondary mb-2 mt-2 text-white fw-bold" style="background-color:#ff9c00">Find etymology</a>
                                     {% else %}
                                     <p>To find etymology add Spanish word and Save word</p>
                                     {% endif %}
-                                    <hr>
+                                    
                                 </article>
                             </section>
-                            <section class="row">
+                            <section class="row mt-2 mb-2 d-none">
                                 {% if form.spanish_word.value %}
-                                <article class="col-sm-6 text-center">
+                                <article class="col-sm-6   text-center">
                                     
                                     <div class="form-group">
                                         
@@ -87,7 +87,7 @@
                             {% endif %}
                             <section class="row">
                                 <article class="col-sm-12 text-center">
-                                    <hr>
+                                    
                                     <div class="form-group">
                                         
                                         {% render_field form.notes class="form-control text-center"  placeholder="Notes to word" rows="2" %}
