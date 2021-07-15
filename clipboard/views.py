@@ -18,18 +18,18 @@ def view_deleted_words(request):
         return redirect('loginPage')
 
 
-def view_words(request,hours):
+def view_words(request,days):
     if request.user.is_authenticated and request.method=='GET':
         search_query=''
         
-        if hours != 0:
+        if days != 0:
             enddate = date.today() + timedelta(days=1)
-            startdate = enddate - timedelta(days=(hours))
+            startdate = enddate - timedelta(days=(days))
             
             words=Word.objects.filter(date_added__range=[startdate, enddate],user=request.user,for_deletion=False).order_by('-date_added')
             
 
-        if hours == 0:
+        if days == 0:
             # Using 0 caughts most of inputs where someone is looking only for date
             # Most months start with 0, every year in that century has 0 in it
             # Rarely someone will search for 0 not meaning a date. 
@@ -46,7 +46,7 @@ def view_words(request,hours):
                 
             else:
                 words = Word.objects.filter(user=request.user,for_deletion=False).order_by('-date_added')
-        context={'words':words,'search_query':search_query,'hours':hours}
+        context={'words':words,'search_query':search_query,'days':days}
         return render(request,'clipboard/view_words.html',context)
     else:
         return redirect('loginPage')

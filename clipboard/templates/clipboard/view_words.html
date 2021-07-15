@@ -19,25 +19,25 @@
                     
                     <div class="card-header">
                         <div class="text mt-2 mb-2 text-dark">
-                      <a href="{% url 'view_words' hours=1 %}"  class="btn {% ifequal hours 1  %} btn-primary {% endifequal %} text-white fw-bold" {% if hours != 1  %}style="background-color:#ff9c00"{% endif %}>Today</a>
+                      <a href="{% url 'view_words' days=1 %}"  class="btn {% ifequal days 1  %} btn-primary {% endifequal %} text-white fw-bold" {% if days != 1  %}style="background-color:#ff9c00"{% endif %}>Today</a>
 
-                      <a href="{% url 'view_words' hours=2 %}"  class="btn {% ifequal hours 2  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours != 2  %}style="background-color:#ff9c00"{% endif %}>Since yeasterday</a>
-                      <a href="{% url 'view_words' hours=8 %}"  class="btn {% ifequal hours 8  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours != 8  %}style="background-color:#ff9c00"{% endif %}>In week</a>
-                      <a href="{% url 'view_words' hours=31 %}"  class="btn {% ifequal hours 31  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours != 31  %}style="background-color:#ff9c00"{% endif %}>In month</a>
-                      <a href="{% url 'view_words' hours=365 %}"  class="btn {% ifequal hours 365  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours != 365  %}style="background-color:#ff9c00"{% endif %}>In year</a>
-                      <a href="{% url 'view_words' hours=0 %}"  class="btn {% ifequal hours 0  %} btn-primary {% endifequal %} text-white fw-bold"  {% if hours == 0 and not search_query != '' %}style="background-color:#1266F1"{% else %} style="background-color:#ff9c00" {% endif %}>See all</a>
+                      <a href="{% url 'view_words' days=2 %}"  class="btn {% ifequal days 2  %} btn-primary {% endifequal %} text-white fw-bold"  {% if days != 2  %}style="background-color:#ff9c00"{% endif %}>Since yeasterday</a>
+                      <a href="{% url 'view_words' days=8 %}"  class="btn {% ifequal days 8  %} btn-primary {% endifequal %} text-white fw-bold"  {% if days != 8  %}style="background-color:#ff9c00"{% endif %}>In week</a>
+                      <a href="{% url 'view_words' days=31 %}"  class="btn {% ifequal days 31  %} btn-primary {% endifequal %} text-white fw-bold"  {% if days != 31  %}style="background-color:#ff9c00"{% endif %}>In month</a>
+                      <a href="{% url 'view_words' days=365 %}"  class="btn {% ifequal days 365  %} btn-primary {% endifequal %} text-white fw-bold"  {% if days != 365  %}style="background-color:#ff9c00"{% endif %}>In year</a>
+                      <a href="{% url 'view_words' days=0 %}"  class="btn {% ifequal days 0  %} btn-primary {% endifequal %} text-white fw-bold"  {% if days == 0 and not search_query != '' %}style="background-color:#1266F1"{% else %} style="background-color:#ff9c00" {% endif %}>See all</a>
                       
 
                         </div>
                     </div>    
                     <div class="card-header text-white " style="background-color:#01055c"  >
                         {% if not search_query %}
-                        {% ifequal hours 0  %}All words{% endifequal %}
-                        {% ifequal hours 1  %}Words added: Today{% endifequal %}
-                        {% ifequal hours 2  %}Words added: Since yeasterday{% endifequal %}
-                        {% ifequal hours 8  %}Words added: In week{% endifequal %}
-                        {% ifequal hours 31  %}Words added: In month{% endifequal %}
-                        {% ifequal hours 365  %}Words added: In year{% endifequal %}
+                        {% ifequal days 0  %}All words{% endifequal %}
+                        {% ifequal days 1  %}Words added: Today{% endifequal %}
+                        {% ifequal days 2  %}Words added: Since yeasterday{% endifequal %}
+                        {% ifequal days 8  %}Words added: In week{% endifequal %}
+                        {% ifequal days 31  %}Words added: In month{% endifequal %}
+                        {% ifequal days 365  %}Words added: In year{% endifequal %}
                         {% else %}
                         Words with: "{{search_query}}"
                          
@@ -46,9 +46,10 @@
                     <div class="card-header text-dark " style="font-size: 13px;" >
                         By typing date you can search for specific day (e.g. 2021-07-14), month (e.g. 2021-07), year (e.g. 2021)
                     </div>
-                    <form class="d-flex ms-3 mt-3 me-3" method="GET" action='{% url "view_words" hours=0 %}'>
-                        <input class="form-control  " type="search" value="{{search_query}}" placeholder="Search" aria-label="Search" name="search_query">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    <form class="d-flex ms-3 mt-3 me-3" method="GET" action='{% url "view_words" days=0 %}'>
+                        <input class="form-control text-center " type="search" value="{{search_query}}" placeholder="Search" aria-label="Search" name="search_query">
+                        
+                        <button class="btn btn-outline-success text-white fw-bold " style="background-color:#ff9c00" type="submit">Search</button>
                       </form>
                     <div class="card-body">
                         <section class="row">
