@@ -15,7 +15,7 @@ def view_deleted_words(request):
         context={'words':words,}
         return render(request,'clipboard/deleted_words.html',context)
     else:
-        return redirect('loginPage')
+        return redirect('login_page')
 
 
 def view_words(request,days):
@@ -49,7 +49,7 @@ def view_words(request,days):
         context={'words':words,'search_query':search_query,'days':days}
         return render(request,'clipboard/view_words.html',context)
     else:
-        return redirect('loginPage')
+        return redirect('login_page')
 
 
 def account_settings(request):
@@ -167,7 +167,7 @@ def add_word(request):
             context={'words':words,'form':form}
             return render(request,'clipboard/add_word.html',context)
     else:
-        return redirect('loginPage')
+        return redirect('login_page')
 
 def register(request):
     if request.user.is_authenticated:
@@ -182,7 +182,7 @@ def register(request):
     else:
         return render(request,'clipboard/register.html',context={'form':form})
 
-def loginPage(request):
+def login_page(request):
     if request.user.is_authenticated:
         return redirect('add_word')
     if request.method=="POST":
@@ -192,10 +192,10 @@ def loginPage(request):
         if user is not None:
             login(request,user)
             return redirect('add_word')
-        return redirect('loginPage')
+        return redirect('login_page')
     else:
         return render(request,'clipboard/login.html')
 
-def logoutPage(request):
+def logout_page(request):
     logout(request)
-    return redirect('loginPage')
+    return redirect('login_page')
