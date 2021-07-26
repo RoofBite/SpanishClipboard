@@ -112,7 +112,7 @@ def retrive_word(request,id):
         return redirect('add_word')
     return redirect('login')
 
-@allow_lazy_user
+#@allow_lazy_user
 def view_word(request,id):
     if request.user.is_authenticated:
         word_instance=Word.objects.filter(id=id,user=request.user.id).first()
@@ -149,7 +149,7 @@ def edit_word(request,id):
 
 
 
-@allow_lazy_user
+#@allow_lazy_user
 def add_word(request):
     
     if request.user.is_authenticated:

@@ -14,7 +14,6 @@ class TestViews(TestCase):
         client = Client()
         client.login(username = 'John', password = 'Password')
 
-
         # If metod POST and authenticated view_words redirects to login_page which is redireting 
         # in that sitaution to add_words
         response = client.post(reverse('view_words', args = ['1']), follow = True)
@@ -54,14 +53,31 @@ class TestViews(TestCase):
         client = Client()
         client.login(username='John', password = 'Password')
 
-        word = Word.objects.create(user=self.user, polish_word='polish_word', spanish_word='spanish_word', etymology= 'etymology', notes= 'notes')
-
         response = client.post(reverse('add_word'),{
             'polish_word':'polish_word',
             'spanish_word':'spanish_word',
             'etymology':'etymology',
             'notes':'notes'
         })
+
         self.assertEquals(response.status_code, 302)
         self.assertEquals(Word.objects.first().polish_word, 'polish_word')
+        self.assertEquals(Word.objects.first().spanish_word, 'spanish_word')
+        self.assertEquals(Word.objects.first().etymology, 'etymology')
+        self.assertEquals(Word.objects.first().notes, 'notes')
+    
+
+    def test_add_word_POST_not_authenticated(self):
+        client = Client()
+        
+
+        response = client.post(reverse('add_word'),{
+            'polish_word':'polish_word2',
+            'spanish_word':'spanish_word2',
+            'etymology':'etymology2',
+            'notes':'notes2'
+        })
+        self.assertEquals(response.status_code, 302)
+        self.assertNotEquals(Word.objects.first().polish_word, 'polish_word2')
+        self.assertTemplateUsed(response,'clipboard/login.html')
         
