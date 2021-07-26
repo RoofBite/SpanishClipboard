@@ -157,14 +157,14 @@ def add_word(request):
            form=WordInputForm(request.POST)
            if form.is_valid():
                new_word = form.save(commit=False)
-               new_word.user=request.user
+               new_word.user = request.user
                new_word.save() 
            return redirect('add_word')
         else:
             form=WordInputForm()
             #words=request.user.word_set.all()
             time_threshold = datetime.now() - timedelta(hours=240)
-            words = Word.objects.filter(date_added__gte=time_threshold,user=request.user,for_deletion=False).order_by('-date_added')
+            words = Word.objects.filter(date_added__gte = time_threshold,user = request.user,for_deletion = False).order_by('-date_added')
             context={'words':words,'form':form}
             return render(request,'clipboard/add_word.html',context)
     else:

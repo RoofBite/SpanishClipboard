@@ -5,12 +5,14 @@ from clipboard.models import Word, UserAccount, User
 class TestViews(TestCase):
 
     def setUp(self): 
-       User.objects.create_user('John', 'John@example.com', 'Password') 
+       self.user = User.objects.create_user('John', 'John@example.com', 'Password') 
 
+       
+    # view_words tests
 
     def test_view_words_POST_authenticated(self):
         client = Client()
-        client.login(username='John', password = 'Password')
+        client.login(username = 'John', password = 'Password')
 
 
         # If metod POST and authenticated view_words redirects to login_page which is redireting 
@@ -45,3 +47,21 @@ class TestViews(TestCase):
 
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response,'clipboard/view_words.html')
+    
+    # add_word tests
+
+    def test_add_word_POST_authenticated(self):
+        client = Client()
+        client.login(username='John', password = 'Password')
+
+        word = Word.objects.create(user=self.user, polish_word='polish_word', spanish_word='spanish_word', etymology= 'etymology', notes= 'notes')
+
+        response = client.post(reverse('add_word'),{
+            'polish_word':'polish_word',
+            'spanish_word':'spanish_word',
+            'etymology':'etymology',
+            'notes':'notes'
+        })
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(Word.objects.first().polish_word, 'polish_word')
+        
