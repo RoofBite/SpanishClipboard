@@ -187,7 +187,6 @@ def login_page(request):
     if request.user.is_authenticated:
         return redirect('add_word')
     if request.method=="POST":
-        print('to')
         username=request.POST['username']
         password=request.POST['password']
         user=authenticate(username=username,password=password)

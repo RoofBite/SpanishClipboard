@@ -77,7 +77,10 @@ class TestViews(TestCase):
             'etymology':'etymology2',
             'notes':'notes2'
         })
+
         self.assertEquals(response.status_code, 302)
-        self.assertNotEquals(Word.objects.first().polish_word, 'polish_word2')
-        self.assertTemplateUsed(response,'clipboard/login.html')
+        self.assertEquals(Word.objects.first(), None)
+        
+        
+        
         
