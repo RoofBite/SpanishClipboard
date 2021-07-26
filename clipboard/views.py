@@ -46,6 +46,7 @@ def view_words(request,days):
                 
             else:
                 words = Word.objects.filter(user=request.user,for_deletion=False).order_by('-date_added')
+        
         context={'words':words,'search_query':search_query,'days':days}
         return render(request,'clipboard/view_words.html',context)
     else:
