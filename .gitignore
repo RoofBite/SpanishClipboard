@@ -4,3 +4,5 @@ myenv
 **/.pot
 **/.pyc
 **/__pycache__
+.coverage
+htmlcov

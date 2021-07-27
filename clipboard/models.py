@@ -19,7 +19,7 @@ class Word(models.Model):
     for_deletion=models.BooleanField(default=False)
     def __str__(self):
         if self.polish_word and self.spanish_word:
-            return (self.polish_word + " - "+self.spanish_word)
+            return (self.polish_word + " - " + self.spanish_word)
         if self.polish_word:
             return (self.polish_word)
         if self.spanish_word:
