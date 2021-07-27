@@ -31,4 +31,4 @@ class TestViews(TestCase):
     def test_useraccount_str_method(self):
         self.useraccount = UserAccount.objects.create(user = self.user)
 
-        self.assertEquals(str(UserAccount.objects.first().user.username), 'John')
+        self.assertEquals(str(UserAccount.objects.first()), 'John')
