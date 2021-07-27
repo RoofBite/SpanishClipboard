@@ -17,11 +17,12 @@ class Word(models.Model):
     notes=models.TextField(max_length=2000,null=True,blank=True)
     date_added=models.DateTimeField(auto_now_add=True)
     for_deletion=models.BooleanField(default=False)
+    
     def __str__(self):
         if self.polish_word and self.spanish_word:
             return (self.polish_word + " - " + self.spanish_word)
         if self.polish_word:
             return (self.polish_word)
         if self.spanish_word:
-            return (self.polish_word)
+            return (self.spanish_word)
         return ('empty')
