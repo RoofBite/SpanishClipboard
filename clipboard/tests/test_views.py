@@ -46,7 +46,35 @@ class TestViews(TestCase):
 
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response,'clipboard/view_words.html')
+
+    def test_view_words_GET_authenticated_search_contains_0(self):
+        client = Client()
+        client.login(username='John', password = 'Password')
+
+
+        response = client.get(reverse('view_words', args = ['0']),{
+            'search_query':'2021'
+        })
+
+        self.assertEqual(response.context['search_query'], '2021') 
+
+        self.word = Word.objects.create(polish_word = 'polish_word', 
+                                        spanish_word = 'spanish_word',
+                                        etymology = 'etymology',
+                                        notes = 'notes',
+                                        date_added = '2021-01-01',
+                                        for_deletion=False,
+                                        user = response.wsgi_request.user,)
+
+        self.assertEquals(Word.objects.get(date_added__startswith = '2021', user = response.wsgi_request.user, for_deletion = False), self.word )
+
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response,'clipboard/view_words.html')
     
+
+
+    
+
     # add_word tests
 
     def test_add_word_POST_authenticated(self):
