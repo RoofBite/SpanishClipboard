@@ -1,7 +1,7 @@
 from django.test import TestCase
 from clipboard.models import Word, UserAccount, User
 
-class TestViews(TestCase):
+class TestModels(TestCase):
 
     def setUp(self): 
        self.user = User.objects.create_user('John', 'John@example.com', 'Password') 
