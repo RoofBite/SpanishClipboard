@@ -7,19 +7,32 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Word',
+            name="Word",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('polish_word', models.CharField(blank=True, max_length=200, null=True)),
-                ('spanish_word', models.CharField(blank=True, max_length=200, null=True)),
-                ('etymology', models.CharField(blank=True, max_length=200, null=True)),
-                ('notes', models.TextField(blank=True, max_length=2000, null=True)),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "polish_word",
+                    models.CharField(blank=True, max_length=200, null=True),
+                ),
+                (
+                    "spanish_word",
+                    models.CharField(blank=True, max_length=200, null=True),
+                ),
+                ("etymology", models.CharField(blank=True, max_length=200, null=True)),
+                ("notes", models.TextField(blank=True, max_length=2000, null=True)),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

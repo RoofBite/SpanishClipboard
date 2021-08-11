@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('clipboard', '0004_alter_useraccount_profile_picture'),
+        ("clipboard", "0004_alter_useraccount_profile_picture"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='word',
-            name='for_deletion',
+            model_name="word",
+            name="for_deletion",
             field=models.BooleanField(default=False),
         ),
     ]

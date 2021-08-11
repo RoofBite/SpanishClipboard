@@ -1,222 +1,252 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from clipboard.models import Word, UserAccount, User
-from django.db.models import Q 
+from django.db.models import Q
 
 
 class TestViews(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
 
-    def setUp(self): 
-       self.user = User.objects.create_user('John', 'John@example.com', 'Password') 
-
-       
     # view_words tests
 
     def test_view_words_POST_authenticated(self):
         client = Client()
-        client.login(username = 'John', password = 'Password')
+        client.login(username="John", password="Password")
 
-        # If metod POST and authenticated view_words redirects to login_page which is redireting 
+        # If metod POST and authenticated view_words redirects to login_page which is redireting
         # in that sitaution to add_words
-        response = client.post(reverse('view_words', args = ['1']), follow = True)
+        response = client.post(reverse("view_words", args=["1"]), follow=True)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response,'clipboard/add_word.html')
+        self.assertTemplateUsed(response, "clipboard/add_word.html")
 
     def test_view_words_POST_not_authenticated(self):
         client = Client()
 
-        response = client.post(reverse('view_words', args = ['1']), follow = True)
+        response = client.post(reverse("view_words", args=["1"]), follow=True)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response,'clipboard/login.html')
+        self.assertTemplateUsed(response, "clipboard/login.html")
 
-    
     def test_view_words_GET_not_authenticated(self):
         client = Client()
 
-        response = client.get(reverse('login_page'), follow = True)
+        response = client.get(reverse("login_page"), follow=True)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response,'clipboard/login.html')
+        self.assertTemplateUsed(response, "clipboard/login.html")
 
     def test_view_words_GET_authenticated(self):
         client = Client()
-        client.login(username='John', password = 'Password')
+        client.login(username="John", password="Password")
 
-        response = client.get(reverse('view_words', args = ['1']), follow = True)
+        response = client.get(reverse("view_words", args=["1"]), follow=True)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response,'clipboard/view_words.html')
-
+        self.assertTemplateUsed(response, "clipboard/view_words.html")
 
     def test_view_words_GET_authenticated_search_days_0(self):
         client = Client()
-        client.login(username='John', password = 'Password')
+        client.login(username="John", password="Password")
 
-        response = client.get(reverse('view_words', args = ['0']))
+        response = client.get(reverse("view_words", args=["0"]))
 
-        self.word = Word.objects.create(polish_word = 'polish_word', 
-                                        spanish_word = 'spanish_word',
-                                        etymology = 'etymology',
-                                        notes = 'notes',
-                                        date_added = '2021-01-01',
-                                        for_deletion=False,
-                                        user = response.wsgi_request.user,)
+        self.word = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_word",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=False,
+            user=response.wsgi_request.user,
+        )
 
-        self.assertEquals(Word.objects.first(), self.word )
+        self.assertEquals(Word.objects.first(), self.word)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response,'clipboard/view_words.html')
+        self.assertTemplateUsed(response, "clipboard/view_words.html")
 
     def test_view_words_GET_authenticated_search_contains_0(self):
         client = Client()
-        client.login(username='John', password = 'Password')
+        client.login(username="John", password="Password")
 
+        response = client.get(
+            reverse("view_words", args=["0"]), {"search_query": "2021"}
+        )
 
-        response = client.get(reverse('view_words', args = ['0']),{
-            'search_query':'2021'
-        })
+        self.assertEqual(response.context["search_query"], "2021")
 
-        self.assertEqual(response.context['search_query'], '2021') 
+        self.word = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_word",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=False,
+            user=response.wsgi_request.user,
+        )
 
-        self.word = Word.objects.create(polish_word = 'polish_word', 
-                                        spanish_word = 'spanish_word',
-                                        etymology = 'etymology',
-                                        notes = 'notes',
-                                        date_added = '2021-01-01',
-                                        for_deletion=False,
-                                        user = response.wsgi_request.user,)
-
-        self.assertEquals(Word.objects.get(date_added__startswith = '2021', user = response.wsgi_request.user, for_deletion = False), self.word )
+        self.assertEquals(
+            Word.objects.get(
+                date_added__startswith="2021",
+                user=response.wsgi_request.user,
+                for_deletion=False,
+            ),
+            self.word,
+        )
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response,'clipboard/view_words.html')
-    
+        self.assertTemplateUsed(response, "clipboard/view_words.html")
 
     def test_view_words_GET_authenticated_search_without_0(self):
         client = Client()
-        client.login(username='John', password = 'Password')
+        client.login(username="John", password="Password")
 
+        response = client.get(
+            reverse("view_words", args=["0"]), {"search_query": "Test"}
+        )
 
-        response = client.get(reverse('view_words', args = ['0']),{
-            'search_query':'Test'
-        })
+        self.search_query_text = "Test"
+        self.assertEqual(response.context["search_query"], self.search_query_text)
 
-        self.search_query_text = 'Test'
-        self.assertEqual(response.context['search_query'], self.search_query_text) 
-
-        
         # Test for polish_word filed lookup
-        self.word1 = Word.objects.create(polish_word = 'polish_wordtest', 
-                                        spanish_word = 'spanish_word',
-                                        etymology = 'etymology',
-                                        notes = 'notes',
-                                        date_added = '2021-01-01',
-                                        for_deletion=False,
-                                        user = response.wsgi_request.user,)
+        self.word1 = Word.objects.create(
+            polish_word="polish_wordtest",
+            spanish_word="spanish_word",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=False,
+            user=response.wsgi_request.user,
+        )
 
-        self.search_query1 = Word.objects.get(Q(polish_word__icontains = self.search_query_text) | Q(date_added__startswith = self.search_query_text)
-                                            | Q(spanish_word__icontains = self.search_query_text) | Q(etymology__icontains = self.search_query_text)
-                                            | Q(notes__icontains = self.search_query_text), user = response.wsgi_request.user, for_deletion = False)
+        self.search_query1 = Word.objects.get(
+            Q(polish_word__icontains=self.search_query_text)
+            | Q(date_added__startswith=self.search_query_text)
+            | Q(spanish_word__icontains=self.search_query_text)
+            | Q(etymology__icontains=self.search_query_text)
+            | Q(notes__icontains=self.search_query_text),
+            user=response.wsgi_request.user,
+            for_deletion=False,
+        )
 
         self.assertEquals(self.search_query1, self.word1)
 
         self.word1.delete()
 
         # Test for spanish_word filed lookup
-        self.word2 = Word.objects.create(polish_word = 'polish_word', 
-                                        spanish_word = 'spanish_wordtest',
-                                        etymology = 'etymology',
-                                        notes = 'notes',
-                                        date_added = '2021-01-01',
-                                        for_deletion=False,
-                                        user = response.wsgi_request.user,)
+        self.word2 = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_wordtest",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=False,
+            user=response.wsgi_request.user,
+        )
 
-        self.search_query2 = Word.objects.get(Q(polish_word__icontains = self.search_query_text) | Q(date_added__startswith = self.search_query_text)
-                                            | Q(spanish_word__icontains = self.search_query_text) | Q(etymology__icontains = self.search_query_text)
-                                            | Q(notes__icontains = self.search_query_text), user = response.wsgi_request.user, for_deletion = False)
+        self.search_query2 = Word.objects.get(
+            Q(polish_word__icontains=self.search_query_text)
+            | Q(date_added__startswith=self.search_query_text)
+            | Q(spanish_word__icontains=self.search_query_text)
+            | Q(etymology__icontains=self.search_query_text)
+            | Q(notes__icontains=self.search_query_text),
+            user=response.wsgi_request.user,
+            for_deletion=False,
+        )
 
         self.assertEquals(self.search_query2, self.word2)
 
         self.word2.delete()
 
-
         # Test for etymology filed lookup
-        self.word3 = Word.objects.create(polish_word = 'polish_word', 
-                                        spanish_word = 'spanish_word',
-                                        etymology = 'etymologytest',
-                                        notes = 'notes',
-                                        date_added = '2021-01-01',
-                                        for_deletion=False,
-                                        user = response.wsgi_request.user,)
+        self.word3 = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_word",
+            etymology="etymologytest",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=False,
+            user=response.wsgi_request.user,
+        )
 
-        self.search_query3 = Word.objects.get(Q(polish_word__icontains = self.search_query_text) | Q(date_added__startswith = self.search_query_text)
-                                            | Q(spanish_word__icontains = self.search_query_text) | Q(etymology__icontains = self.search_query_text)
-                                            | Q(notes__icontains = self.search_query_text), user = response.wsgi_request.user, for_deletion = False)
+        self.search_query3 = Word.objects.get(
+            Q(polish_word__icontains=self.search_query_text)
+            | Q(date_added__startswith=self.search_query_text)
+            | Q(spanish_word__icontains=self.search_query_text)
+            | Q(etymology__icontains=self.search_query_text)
+            | Q(notes__icontains=self.search_query_text),
+            user=response.wsgi_request.user,
+            for_deletion=False,
+        )
 
         self.assertEquals(self.search_query3, self.word3)
 
         self.word3.delete()
 
-
         # Test for notes filed lookup
-        self.word4 = Word.objects.create(polish_word = 'polish_word', 
-                                        spanish_word = 'spanish_word',
-                                        etymology = 'etymology',
-                                        notes = 'notestest',
-                                        date_added = '2021-01-01',
-                                        for_deletion=False,
-                                        user = response.wsgi_request.user,)
+        self.word4 = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_word",
+            etymology="etymology",
+            notes="notestest",
+            date_added="2021-01-01",
+            for_deletion=False,
+            user=response.wsgi_request.user,
+        )
 
-        self.search_query4 = Word.objects.get(Q(polish_word__icontains = self.search_query_text) | Q(date_added__startswith = self.search_query_text)
-                                            | Q(spanish_word__icontains = self.search_query_text) | Q(etymology__icontains = self.search_query_text)
-                                            | Q(notes__icontains = self.search_query_text), user = response.wsgi_request.user, for_deletion = False)
+        self.search_query4 = Word.objects.get(
+            Q(polish_word__icontains=self.search_query_text)
+            | Q(date_added__startswith=self.search_query_text)
+            | Q(spanish_word__icontains=self.search_query_text)
+            | Q(etymology__icontains=self.search_query_text)
+            | Q(notes__icontains=self.search_query_text),
+            user=response.wsgi_request.user,
+            for_deletion=False,
+        )
 
         self.assertEquals(self.search_query4, self.word4)
 
         self.word4.delete()
 
-
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response,'clipboard/view_words.html')
-    
-    
+        self.assertTemplateUsed(response, "clipboard/view_words.html")
 
     # add_word tests
 
     def test_add_word_POST_authenticated(self):
         client = Client()
-        client.login(username='John', password = 'Password')
+        client.login(username="John", password="Password")
 
-        response = client.post(reverse('add_word'),{
-            'polish_word':'polish_word',
-            'spanish_word':'spanish_word',
-            'etymology':'etymology',
-            'notes':'notes'
-        })
+        response = client.post(
+            reverse("add_word"),
+            {
+                "polish_word": "polish_word",
+                "spanish_word": "spanish_word",
+                "etymology": "etymology",
+                "notes": "notes",
+            },
+        )
 
         self.assertEquals(response.status_code, 302)
-        self.assertEquals(Word.objects.first().polish_word, 'polish_word')
-        self.assertEquals(Word.objects.first().spanish_word, 'spanish_word')
-        self.assertEquals(Word.objects.first().etymology, 'etymology')
-        self.assertEquals(Word.objects.first().notes, 'notes')
-    
+        self.assertEquals(Word.objects.first().polish_word, "polish_word")
+        self.assertEquals(Word.objects.first().spanish_word, "spanish_word")
+        self.assertEquals(Word.objects.first().etymology, "etymology")
+        self.assertEquals(Word.objects.first().notes, "notes")
 
     def test_add_word_POST_not_authenticated(self):
         client = Client()
-        
 
-        response = client.post(reverse('add_word'),{
-            'polish_word':'polish_word2',
-            'spanish_word':'spanish_word2',
-            'etymology':'etymology2',
-            'notes':'notes2'
-        })
+        response = client.post(
+            reverse("add_word"),
+            {
+                "polish_word": "polish_word2",
+                "spanish_word": "spanish_word2",
+                "etymology": "etymology2",
+                "notes": "notes2",
+            },
+        )
 
         self.assertEquals(response.status_code, 302)
         self.assertEquals(Word.objects.first(), None)
-        
-        
-        
-        
