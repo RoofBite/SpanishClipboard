@@ -126,7 +126,7 @@ def hide_word(request, id):
             return redirect("add_word")
 
         return redirect("add_word")
-    return redirect("login")
+    return redirect("login_page")
 
 
 def retrive_word(request, id):
@@ -151,7 +151,7 @@ def view_word(request, id):
             context = {"word_instance": word_instance, "form": form}
             return render(request, "clipboard/view_word.html", context)
         return redirect("add_word")
-    return redirect("login")
+    return redirect("login_page")
 
 
 def edit_word(request, id):
