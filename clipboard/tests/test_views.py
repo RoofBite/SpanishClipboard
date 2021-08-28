@@ -555,11 +555,45 @@ class TestViews_view_word(TestCase):
     
         self.assertEquals(response.status_code, 302)
 
-    def test_view_word_GET_not_authenticated(self):
+    def test_view_word_GET_lazy_user(self):
         client = Client()
         self.client.logout()
         response = client.get(reverse("view_word",  args=[1]))
 
         self.assertEquals(response.status_code, 302)
+
+
+
+
+
+class TestViews_register(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
+
+
+    def test_register_GET_authenticated(self):
+        client = Client()
+        client.login(username="John", password="Password")
+
+        response = client.get(reverse("register"))
+        self.assertEquals(response.status_code, 302)
+    
+
+    def test_register_GET_lazy_user(self):
+        client = Client()
+        response = client.get(reverse("register"))
+
+        self.assertEquals(response.status_code, 200)
+
+    def test_register_POST_not_authenticated(self):
+        client = Client()
+        response = client.post(reverse("register"),{   
+            "username":"ExampleUser",
+            "password1":"Pa$$word132",
+            "password2":"Pa$$word132",
+        })
+        
+        self.assertEquals(response.status_code, 302)
+
 
 
