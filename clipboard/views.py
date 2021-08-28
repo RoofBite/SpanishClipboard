@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from .models import UserAccount, Word, User
 from .forms import WordInputForm, UserAccountForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta, date
 from lazysignup.decorators import allow_lazy_user, require_nonlazy_user
+from lazysignup.utils import is_lazy_user
 from django.db.models import Q
 
 
@@ -140,7 +142,7 @@ def retrive_word(request, id):
     return redirect("login")
 
 
-# @allow_lazy_user
+@allow_lazy_user
 def view_word(request, id):
     if request.user.is_authenticated:
         word_instance = Word.objects.filter(id=id, user=request.user.id).first()
@@ -176,7 +178,7 @@ def edit_word(request, id):
     return redirect("add_word")
 
 
-# @allow_lazy_user
+@allow_lazy_user
 def add_word(request):
 
     if request.user.is_authenticated:
@@ -199,9 +201,9 @@ def add_word(request):
     else:
         return redirect("login_page")
 
-
+@allow_lazy_user
 def register(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not is_lazy_user(request.user):
         return redirect("add_word")
     form = UserCreationForm()
     if request.method == "POST":
@@ -210,12 +212,12 @@ def register(request):
             user = form.save()
             UserAccount.objects.create(user=user)
             return redirect("add_word")
-    else:
-        return render(request, "clipboard/register.html", context={"form": form})
+    
+    return render(request, "clipboard/register.html", context={"form": form})
 
-
+@allow_lazy_user
 def login_page(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not is_lazy_user(request.user):
         return redirect("add_word")
     if request.method == "POST":
         username = request.POST["username"]
@@ -224,11 +226,13 @@ def login_page(request):
         if user is not None:
             login(request, user)
             return redirect("add_word")
-        return redirect("login_page")
+        else: 
+            messages.info(request, "Wrong password or username")
+            return redirect("login_page")
     else:
         return render(request, "clipboard/login.html")
 
-
+@allow_lazy_user
 def logout_page(request):
     logout(request)
     return redirect("login_page")
