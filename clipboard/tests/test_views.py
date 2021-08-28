@@ -513,13 +513,53 @@ class TestViews_edit_word(TestCase):
     def test_edit_word_GET_authenticated_no_word(self):
         client = Client()
         client.login(username="John", password="Password")
-        
+        self.word1.delete()
         response = client.get(reverse("edit_word", args=[1]))
     
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 302)
 
     def test_edit_word_GET_not_authenticated(self):
         client = Client()
         response = client.get(reverse("edit_word",  args=[0]))
 
         self.assertEquals(response.status_code, 302)
+
+
+class TestViews_view_word(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
+
+        self.word1 = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_word",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=True,
+            user=self.user,
+        )
+
+        
+    def test_view_word_GET_authenticated(self):
+        client = Client()
+        client.login(username="John", password="Password")
+
+        response = client.get(reverse("view_word", args=[1]))
+        self.assertEquals(response.status_code, 200)
+    
+    def test_view_word_GET_authenticated_no_word(self):
+        client = Client()
+        client.login(username="John", password="Password")
+        self.word1.delete()
+        response = client.get(reverse("view_word", args=[1]))
+    
+        self.assertEquals(response.status_code, 302)
+
+    def test_view_word_GET_not_authenticated(self):
+        client = Client()
+        self.client.logout()
+        response = client.get(reverse("view_word",  args=[1]))
+
+        self.assertEquals(response.status_code, 302)
+
+

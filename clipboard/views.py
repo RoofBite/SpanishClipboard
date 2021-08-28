@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserAccount, Word, User
 from .forms import WordInputForm, UserAccountForm
@@ -142,16 +143,16 @@ def retrive_word(request, id):
 
 
 @allow_lazy_user
+@login_required(login_url="login_page")
 def view_word(request, id):
-    if request.user.is_authenticated:
-        word_instance = Word.objects.filter(id=id, user=request.user.id).first()
-        if word_instance:
-            form = WordInputForm(instance=word_instance)
+    word_instance = Word.objects.filter(id=id, user=request.user.id).first()
+    if word_instance:
+        form = WordInputForm(instance=word_instance)
 
-            context = {"word_instance": word_instance, "form": form}
-            return render(request, "clipboard/view_word.html", context)
-        return redirect("add_word")
-    return redirect("login_page")
+        context = {"word_instance": word_instance, "form": form}
+        return render(request, "clipboard/view_word.html", context)
+    return redirect("add_word")
+    
 
 
 def edit_word(request, id):
@@ -178,27 +179,25 @@ def edit_word(request, id):
 
 
 @allow_lazy_user
+@login_required(login_url="login_page")
 def add_word(request):
-
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            form = WordInputForm(request.POST)
-            if form.is_valid():
-                new_word = form.save(commit=False)
-                new_word.user = request.user
-                new_word.save()
-            return redirect("add_word")
-        else:
-            form = WordInputForm()
-            # words=request.user.word_set.all()
-            time_threshold = datetime.now() - timedelta(hours=240)
-            words = Word.objects.filter(
-                date_added__gte=time_threshold, user=request.user, for_deletion=False
-            ).order_by("-date_added")
-            context = {"words": words, "form": form}
-            return render(request, "clipboard/add_word.html", context)
+    if request.method == "POST":
+        form = WordInputForm(request.POST)
+        if form.is_valid():
+            new_word = form.save(commit=False)
+            new_word.user = request.user
+            new_word.save()
+        return redirect("add_word")
     else:
-        return redirect("login_page")
+        form = WordInputForm()
+        # words=request.user.word_set.all()
+        time_threshold = datetime.now() - timedelta(hours=240)
+        words = Word.objects.filter(
+            date_added__gte=time_threshold, user=request.user, for_deletion=False
+        ).order_by("-date_added")
+        context = {"words": words, "form": form}
+        return render(request, "clipboard/add_word.html", context)
+
 
 @allow_lazy_user
 def register(request):
