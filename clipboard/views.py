@@ -100,7 +100,7 @@ def hard_delete_words(request):
             words.delete()
 
         return redirect("view_deleted_words")
-    return redirect("login")
+    return redirect("login_page")
 
 
 def delete_word(request, id):
@@ -114,7 +114,7 @@ def delete_word(request, id):
             context = {"word_instance": word_instance}
             return render(request, "clipboard/delete_word.html", context)
         return redirect(request.path)
-    return redirect("login")
+    return redirect("login_page")
 
 
 def hide_word(request, id):
@@ -139,7 +139,7 @@ def retrive_word(request, id):
             return redirect("add_word")
 
         return redirect("add_word")
-    return redirect("login")
+    return redirect("login_page")
 
 
 @allow_lazy_user

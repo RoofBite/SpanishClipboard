@@ -4,11 +4,10 @@ from clipboard.models import Word, UserAccount, User
 from django.db.models import Q
 
 
-class TestViews(TestCase):
+class TestViews_view_words(TestCase):
     def setUp(self):
         self.user = User.objects.create_user("John", "John@example.com", "Password")
 
-    # view_words tests
 
     def test_view_words_POST_authenticated(self):
         client = Client()
@@ -213,7 +212,13 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "clipboard/view_words.html")
 
-    # add_word tests
+
+
+
+
+class TestViews_add_word(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
 
     def test_add_word_POST_authenticated(self):
         client = Client()
@@ -249,4 +254,92 @@ class TestViews(TestCase):
         )
 
         self.assertEquals(response.status_code, 302)
+
+
+class TestViews_view_deleted_words(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
+
+        self.word1 = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_word",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=True,
+            user=self.user,
+        )
+        self.word2 = Word.objects.create(
+            polish_word="polish_word2",
+            spanish_word="spanish_word2",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-02",
+            for_deletion=True,
+            user=self.user,
+        )
+
+    def test_view_deleted_words_GET_authenticated(self):
+        client = Client()
+        client.login(username="John", password="Password")
+
+        response = client.get(reverse("view_deleted_words"))
+
+        self.assertEquals(Word.objects.first(), self.word1)
+
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "clipboard/deleted_words.html")
+    
+    def test_view_deleted_words_GET_not_authenticated(self):
+        client = Client()
+
+        response = client.get(reverse("view_deleted_words"))
+
+        self.assertEquals(Word.objects.first(), self.word1)
+
+        self.assertEquals(response.status_code, 302)
+
+
+class TestViews_hard_delete_words(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
+
+        self.word1 = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_word",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=True,
+            user=self.user,
+        )
+        self.word2 = Word.objects.create(
+            polish_word="polish_word2",
+            spanish_word="spanish_word2",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-02",
+            for_deletion=True,
+            user=self.user,
+        )
+
+    def test_hard_delete_words_POST_authenticated(self):
+        client = Client()
+        client.login(username="John", password="Password")
+
+        response = client.post(reverse("hard_delete_words"), {"delete_all":1, "delete_all_confirm":"delete"})
+
         self.assertEquals(Word.objects.first(), None)
+
+        self.assertEquals(response.status_code, 302)
+        
+    
+    def test_hard_delete_words_GET_not_authenticated(self):
+        client = Client()
+
+        response = client.get(reverse("hard_delete_words"),follow=True)
+
+        self.assertEquals(Word.objects.first(), self.word1)
+
+        self.assertEquals(response.status_code, 200)
+
