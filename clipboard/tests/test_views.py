@@ -343,3 +343,57 @@ class TestViews_hard_delete_words(TestCase):
 
         self.assertEquals(response.status_code, 200)
 
+
+class TestViews_delete_word(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
+
+        self.word1 = Word.objects.create(
+            polish_word="polish_word",
+            spanish_word="spanish_word",
+            etymology="etymology",
+            notes="notes",
+            date_added="2021-01-01",
+            for_deletion=True,
+            user=self.user,
+        )
+
+    def test_delete_word_POST_authenticated(self):
+        client = Client()
+        client.login(username="John", password="Password")
+
+        response = client.post(reverse("delete_word", args=[1]))
+    
+        self.assertEquals(Word.objects.first(), None)
+        self.assertEquals(response.status_code, 302)
+        
+    def test_delete_word_GET_authenticated(self):
+        client = Client()
+        client.login(username="John", password="Password")
+
+        response = client.get(reverse("delete_word", args=[1]))
+    
+        self.assertEquals(response.status_code, 200)
+    
+    def test_delete_word_GET_authenticated_no_word(self):
+        client = Client()
+        client.login(username="John", password="Password")
+        self.word1.delete()
+        response = client.get(reverse("delete_word", args=[1]))
+    
+        self.assertEquals(response.status_code, 302)
+
+    def test_delete_word_GET_not_authenticated(self):
+        client = Client()
+        response = client.get(reverse("delete_word",  args=[0]))
+
+        self.assertEquals(response.status_code, 302)
+
+
+
+
+
+
+
+
+

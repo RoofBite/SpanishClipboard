@@ -106,7 +106,7 @@ def hard_delete_words(request):
 def delete_word(request, id):
     if request.user.is_authenticated:
 
-        word_instance = Word.objects.filter(id=id, user=request.user.id).first()
+        word_instance = Word.objects.filter(id=id, user__id=request.user.id).first()
         if word_instance:
             if request.method == "POST":
                 word_instance.delete()
@@ -121,7 +121,6 @@ def hide_word(request, id):
     if request.user.is_authenticated:
         word_instance = Word.objects.filter(id=id, user=request.user.id).first()
         if word_instance:
-
             word_instance.for_deletion = True
             word_instance.save()
             return redirect("add_word")
