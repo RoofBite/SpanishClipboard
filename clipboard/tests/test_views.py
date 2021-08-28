@@ -596,4 +596,59 @@ class TestViews_register(TestCase):
         self.assertEquals(response.status_code, 302)
 
 
+class TestViews_logout_page(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
 
+
+    def test_logout_page_GET_authenticated(self):
+        client = Client()
+        client.login(username="John", password="Password")
+
+        response = client.get(reverse("logout_page"))
+        self.assertEquals(response.status_code, 302)
+    
+
+    def test_register_GET_lazy_user(self):
+        client = Client()
+        response = client.get(reverse("logout_page"))
+
+        self.assertEquals(response.status_code, 302)
+
+
+class TestViews_login_page(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user("John", "John@example.com", "Password")
+
+
+    def test_login_page_GET_authenticated(self):
+        client = Client()
+        client.login(username="John", password="Password")
+
+        response = client.get(reverse("login_page"))
+        self.assertEquals(response.status_code, 302)
+    
+
+    def test_login_page_GET_lazy_user(self):
+        client = Client()
+        response = client.get(reverse("login_page"))
+
+        self.assertEquals(response.status_code, 200)
+
+    def test_login_page_POST_not_authenticated_valid_data(self):
+        client = Client()
+        response = client.post(reverse("login_page"),{   
+            "username":"John",
+            "password":"Password",
+        })
+        
+        self.assertEquals(response.status_code, 302)
+    
+    def test_login_page_POST_not_authenticated_non_valid_data(self):
+        client = Client()
+        response = client.post(reverse("login_page"),{   
+            "username":"John2",
+            "password":"Password2",
+        })
+        
+        self.assertEquals(response.status_code, 302)
