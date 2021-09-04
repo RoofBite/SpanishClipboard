@@ -76,20 +76,6 @@ def view_words(request, days):
     else:
         return redirect("login_page")
 
-
-def account_settings(request):
-    if request.user.is_authenticated:
-        userAccount = request.user.useraccount
-        form = UserAccountForm(instance=userAccount)
-
-        if request.method == "POST":
-            form = UserAccountForm(request.POST, request.FILES, instance=userAccount)
-            if form.is_valid:
-                form.save()
-        context = {"form": form}
-        return render(request, "clipboard/account.html", context)
-
-
 def hard_delete_words(request):
     if request.user.is_authenticated:
 
