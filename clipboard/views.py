@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserAccount, Word, User
-from .forms import WordInputForm, UserAccountForm
+from .forms import WordInputForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta, date
 from lazysignup.decorators import allow_lazy_user, require_nonlazy_user

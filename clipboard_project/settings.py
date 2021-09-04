@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
-# from .secrets import datebase_password, secret_key
-
-
 secret_key = str(os.environ.get("a1"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,6 +29,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "192.168.2.3",
+    "spanish-clipboard.herokuapp.com"
 ]
 
 

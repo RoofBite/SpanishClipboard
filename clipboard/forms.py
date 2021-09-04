@@ -1,5 +1,5 @@
 from django import forms
-from .models import Word, UserAccount
+from .models import Word
 from django.contrib.auth.models import User
 
 
@@ -15,10 +15,10 @@ class WordInputForm(forms.ModelForm):
         ]
 
 
-class UserAccountForm(forms.ModelForm):
-    class Meta:
-        model = UserAccount
-        exclude = ("user",)
-        fields = [
-            "profile_picture",
-        ]
+# class UserAccountForm(forms.ModelForm):
+#     class Meta:
+#         model = UserAccount
+#         exclude = ("user",)
+#         fields = [
+#             "profile_picture",
+#         ]

@@ -26,5 +26,5 @@ ADD . .
 
 #Uncomment for Heroku
 
-CMD gunicorn issue_tracker_project.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn clipboard_project.wsgi:application --bind 0.0.0.0:$PORT
 
