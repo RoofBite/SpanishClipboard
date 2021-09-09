@@ -20,11 +20,11 @@ ADD . .
 
 #Uncomment for local usage
 
-# EXPOSE 8000
-# CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "clipboard_project.wsgi:application"]
+EXPOSE 8000
+CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "clipboard_project.wsgi:application"]
 
 
 #Uncomment for Heroku
 
-CMD gunicorn clipboard_project.wsgi:application --bind 0.0.0.0:$PORT
+# CMD gunicorn clipboard_project.wsgi:application --bind 0.0.0.0:$PORT
 
