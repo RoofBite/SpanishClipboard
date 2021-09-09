@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "192.168.2.3",
     "spanish-clipboard.herokuapp.com"
 ]
 
@@ -91,17 +90,6 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "demo_test",
-#         "USER": "postgres",
-#         "PASSWORD": datebase_password,
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
 
 
 # Password validation
