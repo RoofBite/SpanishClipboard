@@ -6,3 +6,7 @@ myenv
 **/__pycache__
 .coverage
 htmlcov
+.gitignore
+*.gif
+*.png
+db.sqlite3

@@ -15,10 +15,3 @@ class WordInputForm(forms.ModelForm):
         ]
 
 
-# class UserAccountForm(forms.ModelForm):
-#     class Meta:
-#         model = UserAccount
-#         exclude = ("user",)
-#         fields = [
-#             "profile_picture",
-#         ]

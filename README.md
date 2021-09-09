@@ -13,3 +13,5 @@ Then run commands in terminal: <br>
 docker-compose build  <br>
 docker run -p 8000:8000 spanish-clipboard
 
+Go to:
+http://localhost:8000/
