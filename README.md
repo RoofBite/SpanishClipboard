@@ -15,3 +15,8 @@ docker run -p 8000:8000 spanish-clipboard
 
 Go to:
 http://localhost:8000/
+
+Admin panel: http://localhost:8000/admin/
+
+    login: admin
+    password: admin

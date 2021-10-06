@@ -1,5 +1,6 @@
 clipboard_project/secrets.py
 myenv
+staticfiles
 **/.log
 **/.pot
 **/.pyc
